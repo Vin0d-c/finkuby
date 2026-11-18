@@ -1,0 +1,440 @@
+@import "tailwindcss";
+
+/* Windows "animation effects" off makes the browser report reduced motion, which
+   was skipping the hero canvas, shine, and WebGL graphics. Keep those utilities
+   from flattening the visuals. */
+@custom-variant motion-reduce (@media (prefers-reduced-motion: reduce) and (prefers-reduced-motion: no-preference));
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: #ffffff;
+  color: #2c3b50;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+.stage-dots {
+  background-image: radial-gradient(
+    circle,
+    rgba(168, 180, 196, 0.72) 1.05px,
+    transparent 1.2px
+  );
+  background-size: 15px 15px;
+}
+
+.logo-marquee {
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 16%,
+    #000 84%,
+    transparent 100%
+  );
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Keep anchored sections clear of the fixed/sticky header. */
+section[id],
+article[id] {
+  scroll-margin-top: 96px;
+}
+
+/* EMI calculator range sliders */
+.finkuby-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    #16529c 0%,
+    #3ab6fc var(--fill, 0%),
+    #fff var(--fill, 0%),
+    #fff 100%
+  );
+  cursor: pointer;
+}
+.finkuby-range:focus-visible {
+  outline: 2px solid #3ab6fc;
+  outline-offset: 4px;
+}
+.finkuby-range::-webkit-slider-runnable-track {
+  height: 6px;
+  background: transparent;
+  border: none;
+}
+.finkuby-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  margin-top: -6px;
+  border-radius: 999px;
+  background: #16529c;
+  border: 3px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(22, 82, 156, 0.35);
+}
+.finkuby-range::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: #16529c;
+  border: 3px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(22, 82, 156, 0.35);
+}
+.finkuby-range-on-dark {
+  background: linear-gradient(
+    to right,
+    #3ab6fc 0%,
+    #9ed6ff var(--fill, 0%),
+    rgba(255, 255, 255, 0.22) var(--fill, 0%),
+    rgba(255, 255, 255, 0.22) 100%
+  );
+}
+.finkuby-range-on-dark::-webkit-slider-thumb {
+  background: #ffffff;
+  border-color: #3ab6fc;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+.finkuby-range-on-dark::-moz-range-thumb {
+  background: #ffffff;
+  border-color: #3ab6fc;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+/* "Our Offerings" title: lavender-violet gradient with soft light streaks drifting across. */
+.offerings-title {
+  background-image: linear-gradient(
+    105deg,
+    #8a68e0 0%,
+    #d6c3f3 14%,
+    #7f5ddc 26%,
+    #a98ceb 36%,
+    #dacaf5 46%,
+    #7553d8 58%,
+    #d3c0f2 70%,
+    #8d6fe4 82%,
+    #d8c7f4 92%,
+    #8a68e0 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: offerings-drift 9s ease-in-out infinite alternate;
+}
+@keyframes offerings-drift {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 100% 50%;
+  }
+}
+
+/* EMI donut: value chips drift freely over the ring */
+.donut-chip {
+  animation: donut-chip-drift 9s ease-in-out infinite;
+}
+.donut-chip-alt {
+  animation-name: donut-chip-drift-alt;
+  animation-duration: 11s;
+}
+@keyframes donut-chip-drift {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(7px, -10px) rotate(1.5deg);
+  }
+  50% {
+    transform: translate(-4px, -16px) rotate(-1deg);
+  }
+  75% {
+    transform: translate(-9px, -5px) rotate(-2deg);
+  }
+}
+@keyframes donut-chip-drift-alt {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  30% {
+    transform: translate(-8px, 8px) rotate(-1.5deg);
+  }
+  55% {
+    transform: translate(5px, 14px) rotate(1deg);
+  }
+  80% {
+    transform: translate(9px, 3px) rotate(2deg);
+  }
+}
+
+/* Modal open animation */
+.finkuby-dialog[open] {
+  animation: dialog-in 0.2s ease-out;
+}
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+}
+
+/* Spotlight card: glow follows the cursor */
+.spotlight-card {
+  position: relative;
+  isolation: isolate;
+}
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  background: radial-gradient(
+    320px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(58, 182, 252, 0.18),
+    transparent 70%
+  );
+}
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+
+/* CTA aurora */
+/* Each glow roams a wide loop (percentages are of the blob's own size), swelling and
+   shrinking as it goes, so the banner background is visibly always moving. */
+@keyframes aurora-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(45%, 20%) scale(1.2); }
+  50% { transform: translate(15%, 50%) scale(0.9); }
+  75% { transform: translate(-30%, 15%) scale(1.15); }
+}
+.aurora-blob {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(80px);
+  opacity: 0.55;
+  animation: aurora-drift 12s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Testimonials heading: brushed blue metal with a light streak sweeping across,
+   echoing the silver ReflectiveCard sheen below it. */
+@keyframes metal-sweep {
+  0% { background-position: 130% 0, 0 0; }
+  55%, 100% { background-position: -30% 0, 0 0; }
+}
+.metal-blue-text {
+  background-image:
+    linear-gradient(105deg, transparent 38%, rgba(255, 255, 255, 0.9) 48%, rgba(220, 238, 255, 0.6) 52%, transparent 62%),
+    linear-gradient(180deg, #6fb4ff 0%, #2f7fe8 38%, #123f86 50%, #1f68cf 58%, #5aa8ff 100%);
+  background-size: 250% 100%, 100% 100%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #1f68cf;
+  animation: metal-sweep 4.5s ease-in-out infinite;
+}
+
+/* Hero "Simple." shimmer */
+@keyframes hero-shine {
+  from { background-position: 50% 0%; }
+  to { background-position: 50% 100%; }
+}
+.hero-shine {
+  background-size: 100% 260%;
+  animation: hero-shine 3.2s ease-in-out 1.4s infinite alternate;
+}
+
+/* Glass layers fall back to solid when transparency is unwanted or unsupported. */
+@media (prefers-reduced-transparency: reduce) {
+  .glass-layer { display: none !important; }
+  .glass-host { background: #ffffff !important; }
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass-layer { display: none !important; }
+  .glass-host { background: #ffffff !important; }
+}
+/* During a button-triggered glide (lib/smooth-scroll.ts) the stats strip drops its glass
+   filter, which is costly to repaint every frame, and shows plain white instead. */
+html[data-gliding] .glass-layer { display: none !important; }
+html[data-gliding] .glass-host { background: #ffffff !important; }
+
+/* Hero coin: on the right side of the first screen, centered on the horizontal midline. */
+.hero-coin {
+  --coin-w: 128px;
+  position: absolute;
+  left: auto;
+  right: 6%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.hero-coin img {
+  width: var(--coin-w);
+}
+@media (min-width: 640px) {
+  .hero-coin {
+    --coin-w: 158px;
+    right: 8%;
+  }
+}
+@media (min-width: 1024px) {
+  .hero-coin {
+    --coin-w: 182px;
+    right: 10%;
+  }
+}
+
+.hero-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  opacity: 0;
+}
+.hero-ring-a {
+  background: radial-gradient(circle closest-side at center, transparent 0 54%, #ffffff 54.5% 64%, #7eefe6 64.5% 79%, #8ec2ff 79.5% 100%);
+  animation: hero-ring-a 6s linear infinite;
+}
+.hero-ring-b {
+  background: radial-gradient(circle closest-side at center, transparent 0 54%, #8ec2ff 54.5% 64%, #ffffff 64.5% 79%, #7eefe6 79.5% 100%);
+  animation: hero-ring-b 6s linear infinite;
+}
+.hero-ring-c {
+  background: radial-gradient(circle closest-side at center, transparent 0 54%, #7eefe6 54.5% 64%, #8ec2ff 64.5% 79%, #ffffff 79.5% 100%);
+  animation: hero-ring-c 6s linear infinite;
+}
+@keyframes hero-ring-a {
+  0%, 28% { opacity: 0.72; }
+  34%, 96% { opacity: 0; }
+  100% { opacity: 0.72; }
+}
+@keyframes hero-ring-b {
+  0%, 30% { opacity: 0; }
+  36%, 62% { opacity: 0.72; }
+  68%, 100% { opacity: 0; }
+}
+@keyframes hero-ring-c {
+  0%, 64% { opacity: 0; }
+  70%, 94% { opacity: 0.72; }
+  100% { opacity: 0; }
+}
+
+.neon-header-tube {
+  position: absolute;
+  z-index: 25;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  pointer-events: none;
+  transform: scaleX(0);
+  transform-origin: center;
+  background: linear-gradient(90deg, #5ee0d4 0%, #1ad4c4 18%, #5ff6ea 50%, #1ad4c4 82%, #5ee0d4 100%);
+  box-shadow:
+    0 0 8px 1px rgba(26, 212, 196, 0.95),
+    0 0 22px 4px rgba(20, 190, 220, 0.7),
+    0 12px 36px 8px rgba(40, 190, 235, 0.45);
+  animation:
+    neon-tube-on 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards,
+    neon-tube-hum 3.8s ease-in-out 2.2s infinite;
+}
+.neon-header-spill {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(20, 210, 200, 0.95) 0%,
+    rgba(40, 196, 236, 0.82) 16%,
+    rgba(70, 186, 245, 0.68) 34%,
+    rgba(110, 196, 248, 0.5) 52%,
+    rgba(160, 214, 248, 0.28) 72%,
+    rgba(238, 248, 252, 0) 92%
+  );
+  animation: neon-spill-on 2.6s ease 0.15s forwards;
+}
+@keyframes neon-tube-on {
+  to { transform: scaleX(1); }
+}
+@keyframes neon-tube-hum {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.82; }
+}
+@keyframes neon-spill-on {
+  to { opacity: 1; }
+}
+
+@keyframes hero-orbit-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.orbit-spin-outer,
+.orbit-spin-inner,
+.orbit-face-outer,
+.orbit-face-inner {
+  transform-origin: center;
+}
+.orbit-spin-outer { animation: hero-orbit-spin 28s linear infinite; }
+.orbit-face-outer { animation: hero-orbit-spin 28s linear infinite reverse; }
+.orbit-spin-inner { animation: hero-orbit-spin 9s linear infinite reverse; }
+.orbit-face-inner { animation: hero-orbit-spin 9s linear infinite; }
+.orbit-spin-outer:has(.orbit-bubble:hover),
+.orbit-spin-outer:has(.orbit-bubble:hover) .orbit-face-outer,
+.orbit-spin-inner:has(.orbit-bubble:hover),
+.orbit-spin-inner:has(.orbit-bubble:hover) .orbit-face-inner {
+  animation-play-state: paused !important;
+}
+.orbit-bubble {
+  outline: none;
+}
+.orbit-bubble-scale {
+  transition: transform 0.28s ease;
+}
+.orbit-bubble:hover .orbit-bubble-scale,
+.orbit-bubble:focus-visible .orbit-bubble-scale {
+  transform: scale(1.08);
+}
+.orbit-bubble:focus-visible {
+  outline: none;
+}
+
+
+/* Nav dropdowns: panel eases in, items stagger in (Animated List style). */
+.nav-panel {
+  transform-origin: top left;
+  animation: nav-panel-in 0.22s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.nav-item {
+  animation: nav-item-in 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--i, 0) * 45ms + 40ms);
+}
+@keyframes nav-panel-in {
+  from { opacity: 0; transform: translateY(-6px) scale(0.97); }
+}
+@keyframes nav-item-in {
+  from { opacity: 0; transform: translateX(-10px); }
+}
+
+

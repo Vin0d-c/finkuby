@@ -1,0 +1,45 @@
+/*
+ * TrainIn (train-in.tsx): the content arrives like a train. It appears small and far off
+ * to the right, glides toward the viewer while sliding left (the same way the ribbon's text
+ * scrolls), leaning into the motion, then eases a hair past its stop and settles upright.
+ *
+ * Kept smooth on purpose: only transform and opacity animate (no blur filter, which forces
+ * a full repaint every frame), the approach is one long continuous ease-out instead of
+ * several segments (each segment boundary is a visible speed change), and the layer is
+ * promoted ahead of time with will-change.
+ *
+ * Plain global classes on purpose: next.config.ts routes every *.css file (CSS modules
+ * included) through the Tailwind loader as global CSS, so module class names come back empty.
+ */
+@keyframes train-in-move {
+  0% {
+    transform: perspective(1400px) translate3d(110%, 0, -1400px) rotateY(-32deg) skewX(-10deg);
+    /* One smooth deceleration all the way to the overshoot point. */
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  78% {
+    transform: perspective(1400px) translate3d(-1.5%, 0, 0) rotateY(0.6deg) skewX(1.5deg);
+    /* Gentle drift back into place. */
+    animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+  }
+  100% {
+    transform: perspective(1400px) translate3d(0, 0, 0) rotateY(0deg) skewX(0deg);
+  }
+}
+
+@keyframes train-in-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.train-in-waiting {
+  opacity: 0;
+}
+
+.train-in-arrive {
+  transform-origin: 50% 50%;
+  will-change: transform, opacity;
+  animation:
+    train-in-move 2.2s both,
+    train-in-fade 0.6s ease-out both;
+}
