@@ -25,7 +25,7 @@ const blob: Record<Variant, { color: string; particles: string[] }> = {
   solid: { color: "#c6e6ff", particles: ["#3ab6fc", "#9ed6ff", "#16529c"] },
 };
 
-type NavKey = "about" | "products" | "calculator" | "partners" | "testimonials";
+type NavKey = "products" | "calculator" | "partners";
 
 function navLink(variant: Variant) {
   return `relative items-center gap-1 rounded-full px-3.5 py-2 text-[15px] font-medium whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3ab6fc] ${linkTone[variant]}`;
@@ -267,14 +267,8 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
         <Link href={LOGIN_URL} onClick={onClose} className={`${menuItem} sm:hidden`}>
           Login
         </Link>
-        <Link href="/about" onClick={onClose} className={menuItem}>
-          About us
-        </Link>
         <Link href="/partners" onClick={onClose} className={menuItem}>
           Become a Partner
-        </Link>
-        <Link href="/#testimonials" onClick={onClose} className={menuItem}>
-          Testimonials
         </Link>
         <p className="px-3.5 pt-3 pb-1 text-[11px] font-semibold tracking-[0.16em] text-[#8b95a6] uppercase">
           Products
@@ -392,7 +386,6 @@ export function SiteHeader({
     const map: Record<string, NavKey> = {
       products: "products",
       calculator: "calculator",
-      testimonials: "testimonials",
     };
     const io = new IntersectionObserver(
       (entries) =>
@@ -411,8 +404,8 @@ export function SiteHeader({
   }, [pathname]);
 
   const active: NavKey | null =
-    pathname === "/about" ? "about" : pathname === "/partners" ? "partners" : pathname === "/" ? section : null;
-  const page = pathname === "/about" || pathname === "/partners" ? "page" : "location";
+    pathname === "/partners" ? "partners" : pathname === "/" ? section : null;
+  const page = pathname === "/partners" ? "page" : "location";
   const cur = (key: NavKey) => (active === key ? page : undefined);
 
   useEffect(() => {
@@ -441,17 +434,8 @@ export function SiteHeader({
 
       <nav
         aria-label="Primary"
-        className="ml-6 hidden min-w-0 flex-1 items-center justify-evenly md:flex lg:ml-10"
+        className="ml-6 hidden min-w-0 flex-1 items-center justify-center gap-5 md:flex lg:ml-10 lg:gap-7"
       >
-        <Link
-          href="/about"
-          data-nav="about"
-          data-goo=""
-          aria-current={cur("about")}
-          className={`inline-flex ${navLink(variant)}`}
-        >
-          About us
-        </Link>
         <Dropdown
           label="Products"
           variant={variant}
@@ -479,14 +463,6 @@ export function SiteHeader({
         >
           Become a Partner
         </Link>
-        <Link
-          href="/#testimonials"
-          data-goo=""
-          aria-current={cur("testimonials")}
-          className={`${navLink(variant)} hidden md:inline-flex`}
-        >
-          Testimonials
-        </Link>
       </nav>
 
       <div className="ml-4 flex items-center gap-2 sm:gap-3 lg:ml-6 lg:gap-4">
@@ -498,11 +474,11 @@ export function SiteHeader({
           Login
         </Link>
         {hero ? (
-          <CalculatorLink className="rounded-full bg-[#3ab6fc] px-4 py-2 text-sm font-semibold whitespace-nowrap text-white transition-colors hover:bg-[#67c8ff] sm:px-5 sm:py-2.5">
+          <CalculatorLink className="rounded-full bg-[#0b2347] px-4 py-2 text-sm font-semibold whitespace-nowrap text-white transition-colors hover:bg-[#163a6b] sm:px-5 sm:py-2.5">
             Get started
           </CalculatorLink>
         ) : (
-          <ApplyButton fallbackClassName="rounded-full bg-[#3ab6fc] px-4 py-2 text-sm font-semibold whitespace-nowrap text-white transition-colors hover:bg-[#67c8ff] sm:px-5 sm:py-2.5">
+          <ApplyButton fallbackClassName="rounded-full bg-[#0b2347] px-4 py-2 text-sm font-semibold whitespace-nowrap text-white transition-colors hover:bg-[#163a6b] sm:px-5 sm:py-2.5">
             Get started
           </ApplyButton>
         )}

@@ -267,6 +267,9 @@ const link = (gl, fragmentSource) => {
   return { program, uniforms };
 };
 
+/**
+ * @param {Record<string, any>} props
+ */
 const LiquidEther = ({
   colors = ['#5227FF', '#FF9FFC', '#B497CF'],
   intensity = 1,
@@ -287,7 +290,7 @@ const LiquidEther = ({
   maxDevicePixelRatio = 2,
   className = '',
   style,
-  hitTest = null
+  hitTest
 }) => {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);

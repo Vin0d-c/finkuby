@@ -16,10 +16,10 @@ export function FeaturedCta({ product }: { product?: CalculatorProductKey }) {
         if (product) selectCalculatorProduct(product);
       }}
       theme="light"
-      color="#3ab6fc"
+      color="#0b2347"
       backgroundColor="#eef5fd"
       borderColor="#cfe0f4"
-      textColor="#01357c"
+      textColor="#0b2347"
       radius={999}
       className="mt-6 self-start px-5 py-2.5 text-sm font-semibold"
     >

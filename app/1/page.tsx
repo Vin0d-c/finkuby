@@ -131,10 +131,10 @@ export default function HeroOnly() {
             </p>
             {/* Off the home page these go to the home page's sections. */}
             <CalculatorLink
-              className="group inline-flex items-center gap-4 rounded-full bg-[#010e47] py-2 pr-2 pl-7 text-base font-semibold whitespace-nowrap text-white shadow-[0_14px_28px_rgba(1,14,71,0.32)] transition-colors hover:bg-[#0a2160]"
+              className="group inline-flex items-center gap-4 rounded-full bg-[#0b2347] py-2 pr-2 pl-7 text-base font-semibold whitespace-nowrap text-white shadow-[0_14px_28px_rgba(11,35,71,0.28)] transition-colors hover:bg-[#163a6b]"
             >
               Apply instantly
-              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-[#010e47] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-[#0b2347] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
                 <svg
                   viewBox="0 0 24 24"
                   aria-hidden="true"

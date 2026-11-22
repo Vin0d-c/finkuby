@@ -50,7 +50,7 @@ export function SlideToApply() {
         step={5}
         showValue={false}
         ariaLabel="Slide to apply. Or use the Get Started Now button."
-        fillColor="#3ab6fc"
+        fillColor="#0b2347"
         trackColor="rgba(22,82,156,0.16)"
         crestColor="#16529c"
       />

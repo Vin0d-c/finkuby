@@ -163,7 +163,7 @@ function PartnerForm({ onDone }: { onDone: () => void }) {
         <button
           type="submit"
           disabled={status === "sending"}
-          className="mt-1 rounded-full bg-[#01357c] px-6 py-3.5 text-[15px] font-semibold text-white shadow-[0_14px_28px_rgba(1,53,124,0.24)] transition-colors hover:bg-[#01458f] disabled:cursor-not-allowed disabled:bg-[#8b95a6]"
+          className="mt-1 rounded-full bg-[#0b2347] px-6 py-3.5 text-[15px] font-semibold text-white shadow-[0_14px_28px_rgba(11,35,71,0.28)] transition-colors hover:bg-[#163a6b] disabled:cursor-not-allowed disabled:bg-[#8b95a6]"
         >
           {status === "sending" ? "Submitting…" : "Submit Details"}
         </button>

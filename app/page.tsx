@@ -137,18 +137,18 @@ export default function Home() {
               <HeroHeadline />
             </h1>
             <div className="relative mt-40 flex w-fit flex-col items-center lg:mt-56">
-              <p className="absolute bottom-full left-0 mb-4 w-[54vw] text-[11.5px] leading-snug font-medium text-[#3b8ef8] md:mb-5 md:w-[min(27rem,39vw)] md:text-[13px] lg:mb-6 lg:w-[min(27rem,42vw)] lg:text-[15px] lg:leading-relaxed">
+              <p className="absolute bottom-full left-0 mb-4 w-[54vw] text-[11.5px] leading-snug font-medium text-[#0b2347] md:mb-5 md:w-[min(27rem,39vw)] md:text-[13px] lg:mb-6 lg:w-[min(27rem,42vw)] lg:text-[15px] lg:leading-relaxed">
                 <span className="block font-bold">The right loan, without the legwork.</span>
-                <span className="text-[#5ea5fb]">
+                <span className="text-[#0b2347]/80">
                   Finkuby finds financing options that fit your needs, connects you with the right banking partners, and
                   takes care of the process. You apply. We handle the rest.
                 </span>
               </p>
               <CalculatorLink
-                className="group inline-flex items-center gap-4 rounded-full bg-[#010e47] py-2 pr-2 pl-7 text-base font-semibold whitespace-nowrap text-white shadow-[0_14px_28px_rgba(1,14,71,0.32)] transition-colors hover:bg-[#0a2160]"
+                className="group inline-flex items-center gap-4 rounded-full bg-[#0b2347] py-2 pr-2 pl-7 text-base font-semibold whitespace-nowrap text-white shadow-[0_14px_28px_rgba(11,35,71,0.28)] transition-colors hover:bg-[#163a6b]"
               >
                 Apply instantly
-                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-[#010e47] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-[#0b2347] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
                   <svg
                     viewBox="0 0 24 24"
                     aria-hidden="true"

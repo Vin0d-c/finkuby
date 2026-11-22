@@ -1,13 +1,26 @@
 import type { NextConfig } from "next";
 
+/** Project site URL: https://<user>.github.io/finkuby/ */
+const repoName = "finkuby";
+const isGithubPages = process.env.GITHUB_PAGES === "true";
+
 const nextConfig: NextConfig = {
-  /* config options here */
+  output: "export",
+  trailingSlash: true,
+  images: {
+    unoptimized: true,
+  },
+  ...(isGithubPages
+    ? {
+        basePath: `/${repoName}`,
+        assetPrefix: `/${repoName}/`,
+      }
+    : {}),
   experimental: {
     agentFeedback: true,
     agentUpgrade: "security",
   },
-  cacheComponents: true,
-  partialPrefetching: true,
+  // Cache Components / PPR are incompatible with `output: "export"`.
   turbopack: {
     rules: {
       "*.css": {

@@ -67,7 +67,7 @@ export default function AboutPage() {
           </p>
           <Link
             href="/#calculator"
-            className="group mt-8 inline-flex items-center gap-3 rounded-full bg-[#3ab6fc] py-2 pr-2 pl-7 text-base font-semibold text-white transition-colors hover:bg-[#67c8ff]"
+            className="group mt-8 inline-flex items-center gap-3 rounded-full bg-[#0b2347] py-2 pr-2 pl-7 text-base font-semibold text-white transition-colors hover:bg-[#163a6b]"
           >
             Get Started
             <span className={primaryButtonIcon}>
@@ -89,7 +89,7 @@ export default function AboutPage() {
         </div>
       </InnerHero>
 
-      <section className="relative overflow-hidden bg-white py-24">
+      <section id="who-we-are" className="relative scroll-mt-24 overflow-hidden bg-white py-24">
         <div
           aria-hidden
           className="stage-dots pointer-events-none absolute inset-0 opacity-50 [mask-image:linear-gradient(to_bottom,#000,transparent_80%)]"
@@ -175,7 +175,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="bg-white py-24">
+      <section id="leadership" className="scroll-mt-24 bg-white py-24">
         <div className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-12">
           <SectionHeading
             title="Meet Our"

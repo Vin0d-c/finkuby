@@ -45,7 +45,7 @@ export function NewsletterForm() {
           type="submit"
           disabled={status === "sending"}
           aria-label="Subscribe"
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#3ab6fc] text-white transition-colors hover:bg-[#67c8ff] disabled:opacity-60"
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#0b2347] text-white transition-colors hover:bg-[#163a6b] disabled:opacity-60"
         >
           <Icon name="send" className="h-4 w-4" />
         </button>

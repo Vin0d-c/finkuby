@@ -578,7 +578,7 @@ export function EmiCalculator() {
               <button
                 type="button"
                 onClick={() => setApplying(true)}
-                className="w-56 rounded-full bg-[#3ab6fc] px-6 py-3.5 text-[15px] font-semibold text-white transition-colors hover:bg-[#67c8ff]"
+                className="w-56 rounded-full bg-[#0b2347] px-6 py-3.5 text-[15px] font-semibold text-white transition-colors hover:bg-[#163a6b]"
               >
                 Apply for this Loan
               </button>

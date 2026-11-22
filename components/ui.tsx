@@ -300,6 +300,6 @@ export function LinkedInIcon({
 
 /** Primary pill button styling, shared by links and buttons. */
 export const primaryButton =
-  "group inline-flex items-center gap-3 rounded-full bg-[#01357c] py-2 pr-2 pl-6 text-[15px] font-semibold whitespace-nowrap text-white shadow-[0_14px_28px_rgba(1,53,124,0.24)] transition-colors hover:bg-[#01458f] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3ab6fc]";
+  "group inline-flex items-center gap-3 rounded-full bg-[#0b2347] py-2 pr-2 pl-6 text-[15px] font-semibold whitespace-nowrap text-white shadow-[0_14px_28px_rgba(11,35,71,0.28)] transition-colors hover:bg-[#163a6b] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0b2347]";
 export const primaryButtonIcon =
-  "flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#01357c] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5";
+  "flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#0b2347] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5";

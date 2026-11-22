@@ -176,6 +176,9 @@ const usePrefersReducedMotion = () => {
   return reduced;
 };
 
+/**
+ * @param {Record<string, any>} props
+ */
 const CircularCarousel = ({
   items = DEFAULT_ITEMS,
   preset = 'cylinder',

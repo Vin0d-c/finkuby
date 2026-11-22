@@ -49,7 +49,7 @@ export default function PartnersPage() {
             bank matches, instant document assessments, and industry-leading
             commission payouts.
           </p>
-          <PartnerSignupButton className="group mt-8 inline-flex items-center gap-3 rounded-full bg-[#3ab6fc] py-2 pr-2 pl-7 text-base font-semibold text-white transition-colors hover:bg-[#67c8ff]">
+          <PartnerSignupButton className="group mt-8 inline-flex items-center gap-3 rounded-full bg-[#0b2347] py-2 pr-2 pl-7 text-base font-semibold text-white transition-colors hover:bg-[#163a6b]">
             Become Partner
             <span className={primaryButtonIcon}>
               <ArrowUpRight className="h-5 w-5" />
@@ -172,9 +172,9 @@ export default function PartnersPage() {
             <PartnerWordmark />
           </div>
           <div className="flex justify-center">
-            <PartnerSignupButton className="group inline-flex items-center gap-3 rounded-full bg-white py-2 pr-2 pl-6 text-[15px] font-semibold text-[#01357c] shadow-[0_14px_28px_rgba(0,0,0,0.2)] transition-colors hover:bg-[#e7f3ff]">
+            <PartnerSignupButton className="group inline-flex items-center gap-3 rounded-full bg-white py-2 pr-2 pl-6 text-[15px] font-semibold text-[#0b2347] shadow-[0_14px_28px_rgba(0,0,0,0.2)] transition-colors hover:bg-[#e7f3ff]">
               Register as a Partner
-              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#01357c] text-white transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#0b2347] text-white transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
                 <ArrowUpRight className="h-5 w-5" />
               </span>
             </PartnerSignupButton>

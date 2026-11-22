@@ -47,7 +47,7 @@ export function ApplyButton({
         <SpecularButtonLazy
           size={size}
           radius={999}
-          tint="#3ab6fc"
+          tint="#0b2347"
           tintOpacity={0.92}
           textColor="#ffffff"
           lineColor="#ffffff"

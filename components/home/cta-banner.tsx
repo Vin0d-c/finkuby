@@ -44,7 +44,7 @@ export function CtaBanner() {
             <Magnet padding={60} magnetStrength={3} disabled={false}>
               <ApplyButton
                 size="lg"
-                fallbackClassName="group inline-flex items-center gap-3 rounded-full bg-[#3ab6fc] py-2 pr-2 pl-7 text-base font-semibold text-white transition-colors hover:bg-[#67c8ff]"
+                fallbackClassName="group inline-flex items-center gap-3 rounded-full bg-[#0b2347] py-2 pr-2 pl-7 text-base font-semibold text-white transition-colors hover:bg-[#163a6b]"
               >
                 Get Started Now
                 <span className={primaryButtonIcon}>

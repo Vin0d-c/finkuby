@@ -34,9 +34,9 @@ type Values = typeof emptyValues;
 
 const STEPS = 3;
 const secondaryButton =
-  "rounded-full border border-[#d6e0ee] bg-white px-6 py-3.5 text-[15px] font-semibold text-[#3d4f69] transition-colors hover:border-[#3ab6fc] hover:text-[#01357c]";
+  "rounded-full border border-[#d6e0ee] bg-white px-6 py-3.5 text-[15px] font-semibold text-[#3d4f69] transition-colors hover:border-[#0b2347] hover:text-[#0b2347]";
 const primaryButton =
-  "flex-1 rounded-full bg-[#01357c] px-6 py-3.5 text-[15px] font-semibold text-white shadow-[0_14px_28px_rgba(1,53,124,0.24)] transition-colors hover:bg-[#01458f] disabled:cursor-not-allowed disabled:bg-[#8b95a6]";
+  "flex-1 rounded-full bg-[#0b2347] px-6 py-3.5 text-[15px] font-semibold text-white shadow-[0_14px_28px_rgba(11,35,71,0.28)] transition-colors hover:bg-[#163a6b] disabled:cursor-not-allowed disabled:bg-[#8b95a6]";
 
 export function LoanApplicationForm({
   request,

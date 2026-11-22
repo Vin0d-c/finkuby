@@ -301,8 +301,8 @@ export const footerColumns: { title: string; items: FooterItem[] }[] = [
   {
     title: "Company",
     items: [
-      { label: "About Us", href: "/about" },
-      { label: "Leadership", href: "/about" },
+      { label: "About Us", href: "/about#who-we-are" },
+      { label: "Leadership", href: "/about#leadership" },
       { label: "Become a Partner", href: "/partners" },
       { label: "Testimonials", href: "/#testimonials" },
       { label: "Careers" },

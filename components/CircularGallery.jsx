@@ -226,6 +226,9 @@ const link = gl => {
   return { program, uniforms };
 };
 
+/**
+ * @param {Record<string, any>} props
+ */
 const CircularGallery = ({
   items,
   bend = 3,
@@ -250,8 +253,8 @@ const CircularGallery = ({
   wheelScroll = true,
   loop = true,
   getProgress,
-  onScrub = undefined,
-  onScrubEnd = undefined,
+  onScrub,
+  onScrubEnd,
   selectedIndex,
   intro = true,
   onItemClick,

@@ -272,10 +272,10 @@ export function ProductGallery({ heading, background }: { heading: ReactNode; ba
         <div className="relative flex flex-col items-center gap-3 px-5 pt-3 pb-[clamp(1rem,5svh,3rem)] text-center">
           <CalculatorLink
             product={current.calculator}
-            className="group inline-flex items-center gap-3 rounded-full bg-[#010e47] py-2 pr-2 pl-6 text-sm font-semibold text-white shadow-[0_14px_28px_rgba(1,14,71,0.25)] transition-colors hover:bg-[#0a2160] sm:text-base"
+            className="group inline-flex items-center gap-3 rounded-full bg-[#0b2347] py-2 pr-2 pl-6 text-sm font-semibold text-white shadow-[0_14px_28px_rgba(11,35,71,0.28)] transition-colors hover:bg-[#163a6b] sm:text-base"
           >
             Apply Now
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-[#010e47] transition-transform group-hover:translate-x-0.5">
+            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-[#0b2347] transition-transform group-hover:translate-x-0.5">
               <Icon name="arrowRight" className="h-4 w-4" />
             </span>
           </CalculatorLink>
