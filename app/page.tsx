@@ -112,27 +112,23 @@ export default function Home() {
               </div>
             </div>
             <div className="relative aspect-square rounded-full">
-              <div
-                aria-hidden
-                className="pointer-events-none absolute top-1/2 left-1/2 h-[92%] w-[92%] -translate-x-1/2 -translate-y-1/2 rounded-full blur-xl"
-                style={{
-                  background:
-                    "radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.55) 48%, rgba(255,255,255,0) 74%)",
-                }}
-              />
               <div aria-hidden className="hero-ring hero-ring-a" />
               <div aria-hidden className="hero-ring hero-ring-b" />
               <div aria-hidden className="hero-ring hero-ring-c" />
-              <Image
-                src="/LOGO5.png"
-                alt="Finkuby"
-                data-hero-mark
-                width={2000}
-                height={2000}
-                preload
-                draggable={false}
-                className="absolute top-1/2 left-1/2 h-auto w-[70.8%] -translate-x-1/2 -translate-y-1/2"
-              />
+              {/* Clip to the rings' inner hole; scale so logo10's dark disk fills it (no light-blue gap). */}
+              {/* Exactly the ring hole (52%) so it doesn't eat the first band or leave a light gap. */}
+              <div className="absolute top-1/2 left-1/2 z-[1] aspect-square w-[52%] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full bg-[#0b2347]">
+                <Image
+                  src="/logo10.png"
+                  alt="Finkuby"
+                  data-hero-mark
+                  width={2000}
+                  height={2000}
+                  preload
+                  draggable={false}
+                  className="absolute top-1/2 left-1/2 h-[180%] w-[180%] max-w-none -translate-x-1/2 -translate-y-1/2"
+                />
+              </div>
             </div>
           </div>
 

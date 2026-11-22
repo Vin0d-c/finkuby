@@ -311,32 +311,34 @@ html[data-gliding] .glass-host { background: #ffffff !important; }
   border-radius: 9999px;
   opacity: 0;
 }
+/* Equal-width bands; layers crossfade so teal/white/sky rotate consecutively. */
 .hero-ring-a {
-  background: radial-gradient(circle closest-side at center, transparent 0 54%, #ffffff 54.5% 64%, #7eefe6 64.5% 79%, #8ec2ff 79.5% 100%);
-  animation: hero-ring-a 6s linear infinite;
+  background: radial-gradient(circle closest-side at center, transparent 0 52%, #7eefe6 52.5% 68%, #ffffff 68.5% 84%, #8ec2ff 84.5% 100%);
+  animation: hero-ring-a 2.5s linear infinite;
 }
 .hero-ring-b {
-  background: radial-gradient(circle closest-side at center, transparent 0 54%, #8ec2ff 54.5% 64%, #ffffff 64.5% 79%, #7eefe6 79.5% 100%);
-  animation: hero-ring-b 6s linear infinite;
+  background: radial-gradient(circle closest-side at center, transparent 0 52%, #ffffff 52.5% 68%, #8ec2ff 68.5% 84%, #7eefe6 84.5% 100%);
+  animation: hero-ring-b 2.5s linear infinite;
 }
 .hero-ring-c {
-  background: radial-gradient(circle closest-side at center, transparent 0 54%, #7eefe6 54.5% 64%, #8ec2ff 64.5% 79%, #ffffff 79.5% 100%);
-  animation: hero-ring-c 6s linear infinite;
+  background: radial-gradient(circle closest-side at center, transparent 0 52%, #8ec2ff 52.5% 68%, #7eefe6 68.5% 84%, #ffffff 84.5% 100%);
+  animation: hero-ring-c 2.5s linear infinite;
 }
+/* Cycle a → c → b so the color shift reads outward, not in. (2.5s loop) */
 @keyframes hero-ring-a {
-  0%, 28% { opacity: 0.72; }
+  0%, 28% { opacity: 0.85; }
   34%, 96% { opacity: 0; }
-  100% { opacity: 0.72; }
+  100% { opacity: 0.85; }
 }
 @keyframes hero-ring-b {
-  0%, 30% { opacity: 0; }
-  36%, 62% { opacity: 0.72; }
-  68%, 100% { opacity: 0; }
+  0%, 64% { opacity: 0; }
+  70%, 94% { opacity: 0.85; }
+  100% { opacity: 0; }
 }
 @keyframes hero-ring-c {
-  0%, 64% { opacity: 0; }
-  70%, 94% { opacity: 0.72; }
-  100% { opacity: 0; }
+  0%, 30% { opacity: 0; }
+  36%, 62% { opacity: 0.85; }
+  68%, 100% { opacity: 0; }
 }
 
 .neon-header-tube {

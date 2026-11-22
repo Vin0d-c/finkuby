@@ -23,7 +23,7 @@ export default function HeroOnly() {
       >
         {/* z-40: above the orbit (z-30) so the nav dropdowns open over its bubbles. */}
         <header className="absolute inset-x-0 top-0 z-40">
-          <SiteHeader variant="hero" logoSrc="/LOGO9.png" />
+          <SiteHeader variant="hero" logoSrc="/logo11.png" />
         </header>
         <div aria-hidden className="neon-header-spill" />
         <div aria-hidden className="neon-header-tube" />

@@ -289,7 +289,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
   );
 }
 
-// LOGO6/LOGO7 are square canvases with the wordmark in a ~3.5:1 band across the middle, so
+// logo11/LOGO7 are square canvases with the wordmark in a ~3.5:1 band across the middle, so
 // the box is that shape and object-cover crops the empty top and bottom away.
 const LOGO_BOX = "block h-8 w-[112px] shrink-0 sm:h-10 sm:w-[140px]";
 
@@ -374,10 +374,10 @@ const noopSubscribe = () => () => {};
  */
 export function SiteHeader({
   variant,
-  logoSrc = "/LOGO6.png",
+  logoSrc = "/logo11.png",
 }: {
   variant: Variant;
-  /** Header wordmark shown over the page (a 3.5:1 wordmark canvas like LOGO6). Over the footer it is always LOGO7. */
+  /** Header wordmark shown over the page (a 3.5:1 wordmark canvas like logo11). Over the footer it is always LOGO7. */
   logoSrc?: string;
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
