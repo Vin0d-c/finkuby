@@ -34,7 +34,7 @@ export function HeroHeadline() {
 
   return (
     <span ref={ref}>
-      <span className="block text-[#0b2347]">
+      <span className="block text-[#1A2B56]">
         <span data-hw className="inline-block">
           Loans
         </span>{" "}

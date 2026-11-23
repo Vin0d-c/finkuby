@@ -34,9 +34,9 @@ type Values = typeof emptyValues;
 
 const STEPS = 3;
 const secondaryButton =
-  "rounded-full border border-[#d6e0ee] bg-white px-6 py-3.5 text-[15px] font-semibold text-[#3d4f69] transition-colors hover:border-[#0b2347] hover:text-[#0b2347]";
+  "rounded-full border border-[#d6e0ee] bg-white px-6 py-3.5 text-[15px] font-semibold text-[#3d4f69] transition-colors hover:border-[#1A2B56] hover:text-[#1A2B56]";
 const primaryButton =
-  "flex-1 rounded-full bg-[#0b2347] px-6 py-3.5 text-[15px] font-semibold text-white shadow-[0_14px_28px_rgba(11,35,71,0.28)] transition-colors hover:bg-[#163a6b] disabled:cursor-not-allowed disabled:bg-[#8b95a6]";
+  "flex-1 rounded-full bg-[#1A2B56] px-6 py-3.5 text-[15px] font-semibold text-white shadow-[0_14px_28px_rgba(26,43,86,0.28)] transition-colors hover:bg-[#1A2B56] disabled:cursor-not-allowed disabled:bg-[#8b95a6]";
 
 export function LoanApplicationForm({
   request,
@@ -138,13 +138,13 @@ export function LoanApplicationForm({
     <div>
       <h3
         id="loan-form-title"
-        className="pr-10 text-2xl font-black tracking-tight text-[#0b2347]"
+        className="pr-10 text-2xl font-black tracking-tight text-[#1A2B56]"
       >
         Submit Loan Request
       </h3>
       <p className="mt-1 text-sm text-[#5b6b82]">
         Applying for:{" "}
-        <span className="font-semibold text-[#16529c]">
+        <span className="font-semibold text-[#1A2B56]">
           {formatLakhs(request.amount)} {request.productLabel}
         </span>{" "}
         · {request.tenureYears} {request.tenureYears === 1 ? "year" : "years"}
@@ -158,7 +158,7 @@ export function LoanApplicationForm({
           linear
           disableStepIndicators
           theme="light"
-          accentColor="#16529c"
+          accentColor="#1A2B56"
           frame={false}
           width="100%"
           transition="fade"
@@ -178,8 +178,8 @@ export function LoanApplicationForm({
                       onClick={() => setEmployment(option)}
                       className={`rounded-xl border px-4 py-2.5 text-sm font-semibold transition-colors ${
                         employment === option
-                          ? "border-[#16529c] bg-[#16529c] text-white"
-                          : "border-[#d6e0ee] bg-white text-[#3d4f69] hover:border-[#3ab6fc]"
+                          ? "border-[#1A2B56] bg-[#1A2B56] text-white"
+                          : "border-[#d6e0ee] bg-white text-[#3d4f69] hover:border-[#40B5FF]"
                       }`}
                     >
                       {option}
@@ -324,7 +324,7 @@ export function LoanApplicationForm({
               {review.map(([label, value]) => (
                 <div key={label} className="flex justify-between gap-4">
                   <dt className="text-[#5b6b82]">{label}</dt>
-                  <dd className="text-right font-semibold break-words text-[#0b2347]">
+                  <dd className="text-right font-semibold break-words text-[#1A2B56]">
                     {value || "—"}
                   </dd>
                 </div>

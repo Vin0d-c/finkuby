@@ -10,7 +10,19 @@ export const LEADS_ENDPOINT =
   "https://script.google.com/macros/s/AKfycbywzOgqtLLur3Buvx0bMUSMfHR5lMTEOlV2yQd1PY41_ndYVAGKCrl22HBYVcm9DE0f/exec";
 
 /** Where the header "Login" button goes. Point this at the customer portal once it exists. */
-export const LOGIN_URL = "/login";
+export const LOGIN_URL = "/login/";
+
+/** OTP verification step after Send OTP on the login page. */
+export const LOGIN_OTP_URL = "/login/otp/";
+
+/** Customer dashboard after Continue with Finkuby / login OTP. */
+export const DASHBOARD_URL = "/dashboard/";
+
+/** Eligibility form opened from Get Started / Apply CTAs. */
+export const ELIGIBILITY_URL = "/eligibility/";
+
+/** Post–eligibility continue screen (name / mobile / verify). */
+export const ELIGIBILITY_OPTIONS_URL = "/eligibility/continue/";
 
 export const GTM_ID = "GTM-WDXHL82P";
 export const GA_ID = "G-DD2T992PSP";
@@ -32,7 +44,6 @@ export const COPYRIGHT_YEAR = 2026;
 
 export type CalculatorProductKey =
   | "personal"
-  | "insta-personal"
   | "business"
   | "home"
   | "used-car"
@@ -81,16 +92,6 @@ export const calculatorProducts: CalculatorProduct[] = [
     minRate: 7.1,
     maxTenure: 20,
     defaultTenure: 20,
-    inPicker: true,
-  },
-  {
-    key: "insta-personal",
-    label: "Insta Personal Loan",
-    sheetType: "Personal",
-    defaultAmount: 500000,
-    minRate: 9.97,
-    maxTenure: 8,
-    defaultTenure: 5,
     inPicker: true,
   },
   {
@@ -264,16 +265,19 @@ export const productMenu: { label: string; slug: string }[] = [
 ];
 
 /**
- * Footer "Products" list. Items with `href` link to a product card on the home page;
- * the rest have no page yet and render as plain text.
+ * Footer "Products" list. Items with `calculator` open eligibility with that loan
+ * type preselected; the rest have no page yet and render as plain text.
  */
-export const footerProducts: { label: string; href?: string }[] = [
-  { label: "Personal Loans", href: "/#product-personal-loan" },
-  { label: "Business Funding", href: "/#product-business-loan" },
-  { label: "Home Purchase", href: "/#product-home-loan" },
-  { label: "Used Car Finance", href: "/#product-used-car-loan" },
-  { label: "Credit Card", href: "/#product-credit-cards" },
-  { label: "Loan Against Property", href: "/#product-loan-against-property" },
+export const footerProducts: {
+  label: string;
+  calculator?: CalculatorProductKey;
+}[] = [
+  { label: "Personal Loans", calculator: "personal" },
+  { label: "Business Funding", calculator: "business" },
+  { label: "Home Purchase", calculator: "home" },
+  { label: "Used Car Finance", calculator: "used-car" },
+  { label: "Credit Card" },
+  { label: "Loan Against Property", calculator: "lap" },
   { label: "Professional Loan" },
   { label: "Working Capital Loan" },
   { label: "Education Loan" },
@@ -282,12 +286,6 @@ export const footerProducts: { label: string; href?: string }[] = [
   { label: "New Car Loan" },
   { label: "Pre-owned Two Wheeler Loan" },
   { label: "Commercial Vehicle Loan" },
-  { label: "Corporate Salary Account" },
-  { label: "Current Account" },
-  { label: "NRI Account" },
-  { label: "Fixed Deposit" },
-  { label: "Recurring Deposit" },
-  { label: "FASTag" },
 ];
 
 /**

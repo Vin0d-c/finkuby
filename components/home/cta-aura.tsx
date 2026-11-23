@@ -17,10 +17,10 @@ const blobs: {
   /** How far the glow follows the pointer, in px at the banner's edge. Negative moves against it. */
   pull: number;
 }[] = [
-  { className: "-top-32 -left-24 h-[26rem] w-[26rem] bg-[#3ab6fc]", opacity: 0.38, delay: "0s", duration: "6.5s", reverse: false, pull: 300 },
-  { className: "top-[10%] left-[38%] h-72 w-72 bg-[#8f7bff]", opacity: 0.22, delay: "-2.5s", duration: "5s", reverse: true, pull: -200 },
-  { className: "-right-24 -bottom-28 h-[24rem] w-[24rem] bg-[#3b8ef8]", opacity: 0.32, delay: "-4.5s", duration: "7.5s", reverse: true, pull: 260 },
-  { className: "right-[12%] top-[-4rem] h-56 w-56 bg-[#9ed6ff]", opacity: 0.5, delay: "-1s", duration: "4.5s", reverse: false, pull: -160 },
+  { className: "-top-32 -left-24 h-[26rem] w-[26rem] bg-[#40B5FF]", opacity: 0.42, delay: "0s", duration: "6.5s", reverse: false, pull: 300 },
+  { className: "top-[10%] left-[38%] h-72 w-72 bg-[#64E0E1]", opacity: 0.28, delay: "-2.5s", duration: "5s", reverse: true, pull: -200 },
+  { className: "-right-24 -bottom-28 h-[24rem] w-[24rem] bg-[#40B5FF]", opacity: 0.36, delay: "-4.5s", duration: "7.5s", reverse: true, pull: 260 },
+  { className: "right-[12%] top-[-4rem] h-56 w-56 bg-[#40B5FF]", opacity: 0.34, delay: "-1s", duration: "4.5s", reverse: false, pull: -160 },
 ];
 
 export function CtaAura() {

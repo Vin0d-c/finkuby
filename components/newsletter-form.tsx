@@ -28,7 +28,7 @@ export function NewsletterForm() {
 
   return (
     <form ref={formRef} onSubmit={onSubmit} className="mt-4">
-      <div className="flex rounded-full bg-white/[0.06] p-1 ring-1 ring-white/10 focus-within:ring-[#3ab6fc]">
+      <div className="flex rounded-full bg-white/[0.06] p-1 ring-1 ring-white/10 focus-within:ring-[#40B5FF]">
         <label htmlFor="newsletter-email" className="sr-only">
           Email address
         </label>
@@ -45,7 +45,7 @@ export function NewsletterForm() {
           type="submit"
           disabled={status === "sending"}
           aria-label="Subscribe"
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#0b2347] text-white transition-colors hover:bg-[#163a6b] disabled:opacity-60"
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#1A2B56] text-white transition-colors hover:bg-[#1A2B56] disabled:opacity-60"
         >
           <Icon name="send" className="h-4 w-4" />
         </button>
@@ -58,7 +58,7 @@ export function NewsletterForm() {
           color="#c5d3e8"
           background="rgba(255,255,255,0.06)"
           onColor="#ffffff"
-          onBackground="#16529c"
+          onBackground="#1A2B56"
           pressed={status === "sent"}
           disabled={status === "sending"}
           onChange={(next) => {

@@ -3,9 +3,9 @@ import { SplitHeading } from "@/components/split-heading";
 
 /** Gradient used for the highlighted word in headings, matching "Simple." in the hero. */
 export const highlight =
-  "bg-[linear-gradient(180deg,#5aa8ff_0%,#2f7fe8_55%,#16529c_100%)] bg-clip-text text-transparent";
+  "bg-[linear-gradient(180deg,#40B5FF_0%,#40B5FF_55%,#1A2B56_100%)] bg-clip-text text-transparent";
 export const highlightOnDark =
-  "bg-[linear-gradient(180deg,#9ed6ff_0%,#5aa8ff_46%,#3b86f2_100%)] bg-clip-text text-transparent";
+  "bg-[linear-gradient(180deg,#64E0E1_0%,#40B5FF_46%,#3b86f2_100%)] bg-clip-text text-transparent";
 
 export function Eyebrow({
   children,
@@ -18,13 +18,13 @@ export function Eyebrow({
     <p
       className={`inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[11px] font-semibold tracking-[0.18em] uppercase ${
         tone === "dark"
-          ? "bg-white/10 text-[#9ed6ff] ring-1 ring-white/15"
-          : "bg-[#3ab6fc]/10 text-[#16529c] ring-1 ring-[#3ab6fc]/25"
+          ? "bg-white/10 text-[#64E0E1] ring-1 ring-white/15"
+          : "bg-[#40B5FF]/10 text-[#1A2B56] ring-1 ring-[#40B5FF]/25"
       }`}
     >
       <span
         aria-hidden
-        className={`h-1.5 w-1.5 rounded-full ${tone === "dark" ? "bg-[#3ab6fc]" : "bg-[#3ab6fc]"}`}
+        className={`h-1.5 w-1.5 rounded-full ${tone === "dark" ? "bg-[#40B5FF]" : "bg-[#40B5FF]"}`}
       />
       {children}
     </p>
@@ -35,6 +35,7 @@ export function SectionHeading({
   eyebrow,
   title,
   accent,
+  accentClass,
   body,
   tone = "light",
   align = "center",
@@ -43,6 +44,8 @@ export function SectionHeading({
   eyebrow?: string;
   title: string;
   accent: string;
+  /** Overrides the default brand gradient on the accent word. */
+  accentClass?: string;
   body?: string;
   tone?: "light" | "dark";
   align?: "center" | "left";
@@ -54,13 +57,15 @@ export function SectionHeading({
       {eyebrow ? <Eyebrow tone={tone}>{eyebrow}</Eyebrow> : null}
       <Tag
         className={`mt-5 text-[clamp(2rem,4vw,3.25rem)] leading-[1.02] font-black tracking-[-0.03em] ${
-          tone === "dark" ? "text-white" : "text-[#0b2347]"
+          tone === "dark" ? "text-white" : "text-[#1A2B56]"
         }`}
       >
         <SplitHeading
           title={title}
           accent={accent}
-          accentClass={tone === "dark" ? highlightOnDark : highlight}
+          accentClass={
+            accentClass ?? (tone === "dark" ? highlightOnDark : highlight)
+          }
         />
       </Tag>
       {body ? (
@@ -254,6 +259,22 @@ const paths: Record<string, ReactNode> = {
   arrowRight: <path d="M5 12h14M13 6l6 6-6 6" />,
   arrowLeft: <path d="M19 12H5M11 6l-6 6 6 6" />,
   quote: <path d="M9 7H5v6h4l-2 4M19 7h-4v6h4l-2 4" />,
+  edit: (
+    <>
+      <path d="M12 20h9" />
+      <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z" />
+    </>
+  ),
+  file: (
+    <>
+      <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9z" />
+      <path d="M14 3v6h6" />
+      <path d="M9 13h6M9 17h6" />
+    </>
+  ),
+  star: (
+    <path d="m12 3 2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.1l1-5.8-4.2-4.1 5.9-.9z" />
+  ),
 };
 
 export type IconName = keyof typeof paths;
@@ -300,6 +321,6 @@ export function LinkedInIcon({
 
 /** Primary pill button styling, shared by links and buttons. */
 export const primaryButton =
-  "group inline-flex items-center gap-3 rounded-full bg-[#0b2347] py-2 pr-2 pl-6 text-[15px] font-semibold whitespace-nowrap text-white shadow-[0_14px_28px_rgba(11,35,71,0.28)] transition-colors hover:bg-[#163a6b] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0b2347]";
+  "group inline-flex items-center gap-3 rounded-full bg-[#1A2B56] py-2 pr-2 pl-6 text-[15px] font-semibold whitespace-nowrap text-white shadow-[0_14px_28px_rgba(26,43,86,0.28)] transition-colors hover:bg-[#1A2B56] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1A2B56]";
 export const primaryButtonIcon =
-  "flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#0b2347] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5";
+  "flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#1A2B56] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5";

@@ -5,30 +5,37 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import GooeyNav from "@/components/ui/reactbits/GooeyNav";import { ApplyButton } from "@/components/apply-button";
 import { CalculatorLink } from "@/components/calculator-link";
+import { EligibilityLink } from "@/components/eligibility-link";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import { selectCalculatorProduct } from "@/lib/calculator-selection";
 import { smoothScrollTo } from "@/lib/smooth-scroll";
-import { LOGIN_URL, calculatorMenu, productMenu, products } from "@/lib/site";
+import {
+  ELIGIBILITY_URL,
+  LOGIN_URL,
+  calculatorMenu,
+  productMenu,
+  products,
+} from "@/lib/site";
 import { Icon, type IconName } from "@/components/ui";
 
 type Variant = "hero" | "solid";
 
 // The gooey blob (GooeyNav) provides the hover/selected background; text flips to navy on it.
 const linkTone: Record<Variant, string> = {
-  hero: "text-[#0b2347] data-[goo-on]:text-[#0b2347]",
-  solid: "text-[#0b2347]",
+  hero: "text-[#1A2B56] data-[goo-on]:text-[#1A2B56]",
+  solid: "text-[#1A2B56]",
 };
 
 const blob: Record<Variant, { color: string; particles: string[] }> = {
-  hero: { color: "#eaf6ff", particles: ["#3ab6fc", "#eaf6ff", "#9ed6ff"] },
-  solid: { color: "#c6e6ff", particles: ["#3ab6fc", "#9ed6ff", "#16529c"] },
+  hero: { color: "#eaf6ff", particles: ["#40B5FF", "#eaf6ff", "#64E0E1"] },
+  solid: { color: "#c6e6ff", particles: ["#40B5FF", "#64E0E1", "#1A2B56"] },
 };
 
 type NavKey = "products" | "calculator" | "partners";
 
 function navLink(variant: Variant) {
-  return `relative items-center gap-1 rounded-full px-3.5 py-2 text-[15px] font-medium whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3ab6fc] ${linkTone[variant]}`;
+  return `relative items-center gap-1 rounded-full px-3.5 py-2 text-[15px] font-medium whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#40B5FF] ${linkTone[variant]}`;
 }
 
 function Dropdown({
@@ -155,7 +162,7 @@ function Dropdown({
           <div
             role="menu"
             aria-label={label}
-            className={`nav-panel rounded-2xl bg-white p-2 text-[#0b2347] shadow-[0_24px_60px_rgba(6,22,51,0.22)] ring-1 ring-[#e3eaf4] ${columns > 1 ? "grid w-[32rem] grid-cols-2 gap-1" : "min-w-64"}`}
+            className={`nav-panel rounded-2xl bg-white p-2 text-[#1A2B56] shadow-[0_24px_60px_rgba(6,22,51,0.22)] ring-1 ring-[#e3eaf4] ${columns > 1 ? "grid w-[32rem] grid-cols-2 gap-1" : "min-w-64"}`}
           >
             {children(close)}
           </div>
@@ -169,7 +176,7 @@ const menuItem =
   "block w-full rounded-xl px-3.5 py-2.5 text-left text-sm font-medium text-[#24364f] transition-colors hover:bg-[#eef5fd] hover:text-[#01357c]";
 
 const itemFocus =
-  "outline-none focus-visible:bg-[#eef5fd] focus-visible:text-[#01357c] focus-visible:ring-2 focus-visible:ring-[#3ab6fc]";
+  "outline-none focus-visible:bg-[#eef5fd] focus-visible:text-[#01357c] focus-visible:ring-2 focus-visible:ring-[#40B5FF]";
 
 const blurb: Record<string, string> = {
   "personal-loan": "Quick funds, no end-use limit",
@@ -181,40 +188,42 @@ const blurb: Record<string, string> = {
 };
 
 const productIcon = Object.fromEntries(products.map((p) => [p.slug, p.icon]));
+const productBySlug = Object.fromEntries(products.map((p) => [p.slug, p]));
 
 function ProductsMenu({ close, desktop = false }: { close: () => void; desktop?: boolean }) {
-  return productMenu.map((item, i) =>
-    desktop ? (
-      <Link
+  return productMenu.map((item, i) => {
+    const calculator = productBySlug[item.slug]?.calculator;
+    return desktop ? (
+      <EligibilityLink
         key={item.slug}
-        href={`/#product-${item.slug}`}
+        product={calculator}
         role="menuitem"
         tabIndex={-1}
         onClick={close}
         style={{ "--i": i } as React.CSSProperties}
         className={`nav-item group flex items-center gap-3 rounded-xl p-2.5 transition-colors hover:bg-[#eef5fd] ${itemFocus}`}
       >
-        <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-[#eaf6ff] text-[#16529c] transition-colors group-hover:bg-[#3ab6fc] group-hover:text-white group-focus-visible:bg-[#3ab6fc] group-focus-visible:text-white">
+        <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-[#eaf6ff] text-[#1A2B56] transition-colors group-hover:bg-[#40B5FF] group-hover:text-white group-focus-visible:bg-[#40B5FF] group-focus-visible:text-white">
           <Icon name={productIcon[item.slug]} className="h-5 w-5" />
         </span>
         <span className="min-w-0">
-          <span className="block text-sm font-semibold text-[#0b2347]">
+          <span className="block text-sm font-semibold text-[#1A2B56]">
             {item.label}
           </span>
           <span className="block text-xs text-[#5b6b82]">{blurb[item.slug]}</span>
         </span>
-      </Link>
+      </EligibilityLink>
     ) : (
-      <Link
+      <EligibilityLink
         key={item.slug}
-        href={`/#product-${item.slug}`}
+        product={calculator}
         onClick={close}
         className={menuItem}
       >
         {item.label}
-      </Link>
-    ),
-  );
+      </EligibilityLink>
+    );
+  });
 }
 
 const calcCard: Record<string, { title: string; icon: IconName }> = {
@@ -248,11 +257,11 @@ function CalculatorMenu({ close, desktop = false }: { close: () => void; desktop
         style={{ "--i": i } as React.CSSProperties}
         className={`nav-item group flex items-center gap-3 rounded-xl p-2.5 transition-colors hover:bg-[#eef5fd] ${itemFocus}`}
       >
-        <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-[#eaf6ff] text-[#16529c] transition-colors group-hover:bg-[#3ab6fc] group-hover:text-white group-focus-visible:bg-[#3ab6fc] group-focus-visible:text-white">
+        <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-[#eaf6ff] text-[#1A2B56] transition-colors group-hover:bg-[#40B5FF] group-hover:text-white group-focus-visible:bg-[#40B5FF] group-focus-visible:text-white">
           <Icon name={card.icon} className="h-5 w-5" />
         </span>
         <span className="min-w-0">
-          <span className="block text-sm font-semibold text-[#0b2347]">{card.title}</span>
+          <span className="block text-sm font-semibold text-[#1A2B56]">{card.title}</span>
           <span className="block text-xs text-[#5b6b82]">EMI calculator</span>
         </span>
       </Link>
@@ -262,7 +271,7 @@ function CalculatorMenu({ close, desktop = false }: { close: () => void; desktop
 
 function MobileMenu({ onClose }: { onClose: () => void }) {
   return (
-    <div className="absolute inset-x-3 top-full z-30 mt-1 max-h-[calc(100svh-6rem)] overflow-y-auto rounded-3xl bg-white p-3 text-[#0b2347] shadow-[0_30px_70px_rgba(6,22,51,0.28)] ring-1 ring-[#e3eaf4] 2xl:hidden">
+    <div className="absolute inset-x-3 top-full z-30 mt-1 max-h-[calc(100svh-6rem)] overflow-y-auto rounded-3xl bg-white p-3 text-[#1A2B56] shadow-[0_30px_70px_rgba(6,22,51,0.28)] ring-1 ring-[#e3eaf4] 2xl:hidden">
       <nav aria-label="Mobile" className="grid gap-1">
         <Link href={LOGIN_URL} onClick={onClose} className={`${menuItem} sm:hidden`}>
           Login
@@ -283,7 +292,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
   );
 }
 
-// logo11/LOGO7 are square canvases with the wordmark in a ~3.5:1 band across the middle, so
+// logo11/logo12 are square canvases with the wordmark in a ~3.5:1 band across the middle, so
 // the box is that shape and object-cover crops the empty top and bottom away.
 const LOGO_BOX = "block h-8 w-[112px] shrink-0 sm:h-10 sm:w-[140px]";
 
@@ -348,7 +357,7 @@ function FixedLogo({ preload, logoSrc }: { preload: boolean; logoSrc: string }) 
           }}
         >
           {image(logoSrc, !onDark)}
-          {image("/LOGO7.png", onDark)}
+          {image("/logo12.png", onDark)}
         </Link>
       </div>
     </div>
@@ -371,7 +380,7 @@ export function SiteHeader({
   logoSrc = "/logo11.png",
 }: {
   variant: Variant;
-  /** Header wordmark shown over the page (a 3.5:1 wordmark canvas like logo11). Over the footer it is always LOGO7. */
+  /** Header wordmark shown over the page (a 3.5:1 wordmark canvas like logo11). Over the footer it is always logo12. */
   logoSrc?: string;
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -469,19 +478,16 @@ export function SiteHeader({
         {/* Hidden on phones, where it lives in the menu instead, so the bar doesn't crowd. */}
         <Link
           href={LOGIN_URL}
-          className="hidden px-1 py-2 text-sm font-semibold whitespace-nowrap text-[#16529c] transition-colors hover:text-[#3ab6fc] sm:inline-flex"
+          className="hidden px-1 py-2 text-sm font-semibold whitespace-nowrap text-[#1A2B56] transition-colors hover:text-[#40B5FF] sm:inline-flex"
         >
           Login
         </Link>
-        {hero ? (
-          <CalculatorLink className="rounded-full bg-[#0b2347] px-4 py-2 text-sm font-semibold whitespace-nowrap text-white transition-colors hover:bg-[#163a6b] sm:px-5 sm:py-2.5">
-            Get started
-          </CalculatorLink>
-        ) : (
-          <ApplyButton fallbackClassName="rounded-full bg-[#0b2347] px-4 py-2 text-sm font-semibold whitespace-nowrap text-white transition-colors hover:bg-[#163a6b] sm:px-5 sm:py-2.5">
-            Get started
-          </ApplyButton>
-        )}
+        <ApplyButton
+          href={ELIGIBILITY_URL}
+          fallbackClassName="rounded-full bg-[#1A2B56] px-4 py-2 text-sm font-semibold whitespace-nowrap text-white transition-colors hover:bg-[#40B5FF] sm:px-5 sm:py-2.5"
+        >
+          Get started
+        </ApplyButton>
         <button
           type="button"
           aria-label={menuOpen ? "Close menu" : "Open menu"}
@@ -489,7 +495,7 @@ export function SiteHeader({
           onClick={() => setMenuOpen((value) => !value)}
           className={`flex h-10 w-10 items-center justify-center rounded-full 2xl:hidden ${
             hero
-              ? "text-[#0b2347] ring-1 ring-[#0b2347]/30 hover:bg-[#0b2347]/10"
+              ? "text-[#1A2B56] ring-1 ring-[#1A2B56]/30 hover:bg-[#1A2B56]/10"
               : "text-[#01357c] ring-1 ring-[#d6e0ee] hover:bg-[#eef5fd]"
           }`}
         >

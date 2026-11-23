@@ -1,8 +1,21 @@
 'use client';
 
-import { useRef, useState, useCallback, useEffect, type CSSProperties } from 'react';
+import {
+  useRef,
+  useState,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  forwardRef,
+  type CSSProperties
+} from 'react';
 
 type Side = 'left' | 'right';
+
+export type OptionWheelHandle = {
+  /** Animate the wheel by `delta` steps (positive = next / down). */
+  step: (delta?: number) => void;
+};
 
 export interface OptionWheelProps {
   items?: string[];
@@ -61,29 +74,32 @@ const DEFAULT_ITEMS = [
   'Drum & Bass'
 ];
 
-const OptionWheel = ({
-  items = DEFAULT_ITEMS,
-  defaultSelected = 3,
-  onChange,
-  textColor = '#a6a6a6',
-  activeColor = '#ffffff',
-  side = 'left',
-  fontSize = 3,
-  spacing = 1.4,
-  curve = 1,
-  tilt = 6,
-  blur = 2,
-  fade = 0.25,
-  minOpacity = 0.05,
-  smoothing = 200,
-  inset = 80,
-  loop = false,
-  draggable = true,
-  soundUrl = '',
-  soundVolume = 0.5,
-  autoAdvance = 0,
-  className = ''
-}: OptionWheelProps) => {
+const OptionWheel = forwardRef<OptionWheelHandle, OptionWheelProps>(function OptionWheel(
+  {
+    items = DEFAULT_ITEMS,
+    defaultSelected = 3,
+    onChange,
+    textColor = '#a6a6a6',
+    activeColor = '#ffffff',
+    side = 'left',
+    fontSize = 3,
+    spacing = 1.4,
+    curve = 1,
+    tilt = 6,
+    blur = 2,
+    fade = 0.25,
+    minOpacity = 0.05,
+    smoothing = 200,
+    inset = 80,
+    loop = false,
+    draggable = true,
+    soundUrl = '',
+    soundVolume = 0.5,
+    autoAdvance = 0,
+    className = ''
+  },
+  ref
+) {
   const rootRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
   const posRef = useRef(defaultSelected);
@@ -246,6 +262,16 @@ const OptionWheel = ({
       startLoop();
     },
     [startLoop, playTick, paintSelected]
+  );
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      step: (delta = 1) => {
+        applyTarget(Math.round(targetRef.current) + delta, true);
+      }
+    }),
+    [applyTarget]
   );
 
   // Wheel / touchpad scrolling, registered manually so it can be non-passive.
@@ -459,6 +485,6 @@ const OptionWheel = ({
       ))}
     </div>
   );
-};
+});
 
 export default OptionWheel;

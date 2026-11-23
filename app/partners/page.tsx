@@ -49,7 +49,7 @@ export default function PartnersPage() {
             bank matches, instant document assessments, and industry-leading
             commission payouts.
           </p>
-          <PartnerSignupButton className="group mt-8 inline-flex items-center gap-3 rounded-full bg-[#0b2347] py-2 pr-2 pl-7 text-base font-semibold text-white transition-colors hover:bg-[#163a6b]">
+          <PartnerSignupButton className="group mt-8 inline-flex items-center gap-3 rounded-full bg-[#1A2B56] py-2 pr-2 pl-7 text-base font-semibold text-white transition-colors hover:bg-[#1A2B56]">
             Become Partner
             <span className={primaryButtonIcon}>
               <ArrowUpRight className="h-5 w-5" />
@@ -83,12 +83,12 @@ export default function PartnersPage() {
             {partnerBenefits.map((benefit) => (
               <article
                 key={benefit.title}
-                className="rounded-3xl bg-white p-7 ring-1 ring-[#e3eaf4] shadow-[0_20px_50px_rgba(11,35,71,0.06)]"
+                className="rounded-3xl bg-white p-7 ring-1 ring-[#e3eaf4] shadow-[0_20px_50px_rgba(26,43,86,0.06)]"
               >
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#16529c] text-white">
+                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#1A2B56] text-white">
                   <Icon name={benefit.icon} className="h-6 w-6" />
                 </span>
-                <h3 className="mt-5 text-lg font-black tracking-tight text-[#0b2347]">
+                <h3 className="mt-5 text-lg font-black tracking-tight text-[#1A2B56]">
                   {benefit.title}
                 </h3>
                 <p className="mt-2 text-[15px] leading-relaxed text-[#5b6b82]">
@@ -113,11 +113,11 @@ export default function PartnersPage() {
                 key={type.title}
                 className="flex gap-4 rounded-2xl bg-white p-6 ring-1 ring-[#e3eaf4]"
               >
-                <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#3ab6fc]/15 text-[#16529c]">
+                <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#40B5FF]/15 text-[#1A2B56]">
                   <Icon name="check" className="h-4 w-4" />
                 </span>
                 <div>
-                  <h3 className="font-bold text-[#0b2347]">{type.title}</h3>
+                  <h3 className="font-bold text-[#1A2B56]">{type.title}</h3>
                   <p className="mt-1 text-sm leading-relaxed text-[#5b6b82]">
                     {type.body}
                   </p>
@@ -128,16 +128,16 @@ export default function PartnersPage() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-[#0b2f63] py-24 text-white">
+      <section className="relative overflow-hidden bg-[#1A2B56] py-24 text-white">
         <div
           aria-hidden
-          className="pointer-events-none absolute -right-1/4 -bottom-1/2 h-[900px] w-[900px] rounded-full bg-[#16529c]"
+          className="pointer-events-none absolute -right-1/4 -bottom-1/2 h-[900px] w-[900px] rounded-full bg-[#1A2B56]"
         />
         <WebglOnView className="pointer-events-none absolute inset-0 opacity-60">
           <MagnetLinesLazy
             spacing={44}
-            lineColor="#5aa8ff"
-            accentColor="#9ed6ff"
+            lineColor="#40B5FF"
+            accentColor="#64E0E1"
             lineWidth={2}
             lineHeight={16}
             radius={180}
@@ -156,7 +156,7 @@ export default function PartnersPage() {
                 key={step.step}
                 className="rounded-3xl bg-white/[0.07] p-7 ring-1 ring-white/12 backdrop-blur-sm"
               >
-                <span className="text-xs font-semibold tracking-[0.16em] text-[#3ab6fc] uppercase">
+                <span className="text-xs font-semibold tracking-[0.16em] text-[#40B5FF] uppercase">
                   {step.step}
                 </span>
                 <h3 className="mt-3 text-xl font-black tracking-tight">
@@ -172,9 +172,9 @@ export default function PartnersPage() {
             <PartnerWordmark />
           </div>
           <div className="flex justify-center">
-            <PartnerSignupButton className="group inline-flex items-center gap-3 rounded-full bg-white py-2 pr-2 pl-6 text-[15px] font-semibold text-[#0b2347] shadow-[0_14px_28px_rgba(0,0,0,0.2)] transition-colors hover:bg-[#e7f3ff]">
+            <PartnerSignupButton className="group inline-flex items-center gap-3 rounded-full bg-white py-2 pr-2 pl-6 text-[15px] font-semibold text-[#1A2B56] shadow-[0_14px_28px_rgba(0,0,0,0.2)] transition-colors hover:bg-[#e7f3ff]">
               Register as a Partner
-              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#0b2347] text-white transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#1A2B56] text-white transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
                 <ArrowUpRight className="h-5 w-5" />
               </span>
             </PartnerSignupButton>

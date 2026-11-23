@@ -55,7 +55,7 @@ export default function AboutPage() {
               trigger="mount"
               fontSize="inherit"
               fontWeight="inherit"
-              color="#5aa8ff"
+              color="#40B5FF"
               className="block !leading-[0.98] !tracking-[-0.035em]"
             />
           </h1>
@@ -66,8 +66,8 @@ export default function AboutPage() {
             borrowing simple, transparent, and completely paperless.
           </p>
           <Link
-            href="/#calculator"
-            className="group mt-8 inline-flex items-center gap-3 rounded-full bg-[#0b2347] py-2 pr-2 pl-7 text-base font-semibold text-white transition-colors hover:bg-[#163a6b]"
+            href="/eligibility/"
+            className="group mt-8 inline-flex items-center gap-3 rounded-full bg-[#1A2B56] py-2 pr-2 pl-7 text-base font-semibold text-white transition-colors hover:bg-[#40B5FF]"
           >
             Get Started
             <span className={primaryButtonIcon}>
@@ -96,7 +96,7 @@ export default function AboutPage() {
         />
         <div className="relative mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-12">
           <div className="mx-auto max-w-3xl text-center">
-            <h2 className="text-[clamp(2rem,4vw,3.25rem)] leading-[1.02] font-black tracking-[-0.03em] text-[#0b2347]">
+            <h2 className="text-[clamp(2rem,4vw,3.25rem)] leading-[1.02] font-black tracking-[-0.03em] text-[#1A2B56]">
               Who <span className={highlight}>We Are</span>
             </h2>
             <ScrollReveal
@@ -116,12 +116,12 @@ export default function AboutPage() {
             {aboutValues.map((value) => (
               <article
                 key={value.title}
-                className="rounded-3xl bg-white p-7 ring-1 ring-[#e3eaf4] shadow-[0_20px_50px_rgba(11,35,71,0.06)]"
+                className="rounded-3xl bg-white p-7 ring-1 ring-[#e3eaf4] shadow-[0_20px_50px_rgba(26,43,86,0.06)]"
               >
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#16529c] text-white">
+                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#1A2B56] text-white">
                   <Icon name={value.icon} className="h-6 w-6" />
                 </span>
-                <h3 className="mt-5 text-xl font-black tracking-tight text-[#0b2347]">
+                <h3 className="mt-5 text-xl font-black tracking-tight text-[#1A2B56]">
                   {value.title}
                 </h3>
                 <p className="mt-2 text-[15px] leading-relaxed text-[#5b6b82]">
@@ -153,12 +153,12 @@ export default function AboutPage() {
               key={item.title}
               className={`relative overflow-hidden rounded-3xl p-8 sm:p-10 ${
                 item.dark
-                  ? "bg-[#16529c] text-white"
-                  : "bg-white text-[#0b2347] ring-1 ring-[#e3eaf4]"
+                  ? "bg-[#1A2B56] text-white"
+                  : "bg-white text-[#1A2B56] ring-1 ring-[#e3eaf4]"
               }`}
             >
               <span
-                className={`flex h-12 w-12 items-center justify-center rounded-2xl ${item.dark ? "bg-white/15 text-white" : "bg-[#16529c] text-white"}`}
+                className={`flex h-12 w-12 items-center justify-center rounded-2xl ${item.dark ? "bg-white/15 text-white" : "bg-[#1A2B56] text-white"}`}
               >
                 <Icon name={item.icon} className="h-6 w-6" />
               </span>
@@ -186,7 +186,7 @@ export default function AboutPage() {
             {leaders.map((leader) => (
               <article
                 key={leader.name}
-                className="overflow-hidden rounded-3xl bg-white ring-1 ring-[#e3eaf4] shadow-[0_20px_50px_rgba(11,35,71,0.06)]"
+                className="overflow-hidden rounded-3xl bg-white ring-1 ring-[#e3eaf4] shadow-[0_20px_50px_rgba(26,43,86,0.06)]"
               >
                 <div className="relative aspect-[4/3] bg-[#e8eef7]">
                   <Image
@@ -200,10 +200,10 @@ export default function AboutPage() {
                 <div className="p-7">
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <h3 className="text-xl font-black tracking-tight text-[#0b2347]">
+                      <h3 className="text-xl font-black tracking-tight text-[#1A2B56]">
                         {leader.name}
                       </h3>
-                      <p className="mt-1 text-sm font-semibold text-[#16529c]">
+                      <p className="mt-1 text-sm font-semibold text-[#1A2B56]">
                         {leader.title}
                       </p>
                     </div>
@@ -212,7 +212,7 @@ export default function AboutPage() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`${leader.name} on LinkedIn`}
-                      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#eef5fd] text-[#16529c] transition-colors hover:bg-[#16529c] hover:text-white"
+                      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#eef5fd] text-[#1A2B56] transition-colors hover:bg-[#1A2B56] hover:text-white"
                     >
                       <LinkedInIcon />
                     </a>

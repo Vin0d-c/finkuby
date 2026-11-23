@@ -5,14 +5,13 @@ import { CalculatorLink } from "@/components/calculator-link";
 import { HeroHeadline } from "@/components/hero-headline";
 import { SiteHeader } from "@/components/site-header";
 import { Stats } from "@/components/home/stats";
-import CurvedLoop from "@/components/ui/reactbits/CurvedLoop";
-import { TrainIn } from "@/components/train-in";
 import { Products } from "@/components/home/products";
 import { Process } from "@/components/home/process";
 import { EmiCalculator } from "@/components/home/emi-calculator";
 import { BankPartners } from "@/components/home/bank-partners";
 import { Testimonials } from "@/components/home/testimonials";
 import { CtaBanner } from "@/components/home/cta-banner";
+import { HeroTrustMarquee } from "@/components/home/hero-trust-marquee";
 import { SiteFooter } from "@/components/site-footer";
 
 export const metadata: Metadata = {
@@ -37,7 +36,7 @@ export default function Home() {
         <section
           id="top"
           aria-label="Loans made simple"
-          className="relative z-10 h-svh min-h-[600px] overflow-x-clip overflow-y-visible bg-[linear-gradient(to_bottom,#d7f1fb_0%,#d7f1fb_55%,#e9f7fd_80%,#ffffff_100%)] text-[#0b2347]"
+          className="relative z-10 h-svh min-h-[600px] overflow-x-clip overflow-y-visible bg-[linear-gradient(to_bottom,#d7f1fb_0%,#d7f1fb_55%,#e9f7fd_80%,#ffffff_100%)] text-[#1A2B56]"
         >
           {/* z-40: above the orbit (z-30) so the nav dropdowns open over its bubbles. */}
           <header className="absolute inset-x-0 top-0 z-40">
@@ -53,7 +52,7 @@ export default function Home() {
                 style={{ transformOrigin: "center", animation: "hero-orbit-spin 28s linear infinite" }}
               >
                 <svg aria-hidden viewBox="0 0 240 240" className="h-full w-full overflow-visible">
-                  <circle cx="120" cy="120" r="104" fill="none" stroke="#3b8ef8" strokeWidth="0.7" />
+                  <circle cx="120" cy="120" r="104" fill="none" stroke="#40B5FF" strokeWidth="0.7" />
                   <circle cx="120" cy="16" r="6" fill="#5aa6ff" />
                 </svg>
                 <Link
@@ -66,7 +65,7 @@ export default function Home() {
                     className="orbit-face-outer block h-full w-full"
                     style={{ transformOrigin: "center", animation: "hero-orbit-spin 28s linear infinite reverse" }}
                   >
-                    <span className="orbit-bubble-scale flex h-full w-full items-center justify-center rounded-full bg-[#3b8ef8] transition-transform duration-300 group-hover:scale-110">
+                    <span className="orbit-bubble-scale flex h-full w-full items-center justify-center rounded-full bg-[#40B5FF] transition-transform duration-300 group-hover:scale-110">
                       <Image src="/orbit-home.png" alt="" width={1350} height={1350} unoptimized draggable={false} className="h-auto w-[59%]" />
                     </span>
                   </span>
@@ -81,7 +80,7 @@ export default function Home() {
                     className="orbit-face-outer block h-full w-full"
                     style={{ transformOrigin: "center", animation: "hero-orbit-spin 28s linear infinite reverse" }}
                   >
-                    <span className="orbit-bubble-scale flex h-full w-full items-center justify-center rounded-full bg-[#3b8ef8] transition-transform duration-300 group-hover:scale-110">
+                    <span className="orbit-bubble-scale flex h-full w-full items-center justify-center rounded-full bg-[#40B5FF] transition-transform duration-300 group-hover:scale-110">
                       <Image src="/orbit-car.png" alt="" width={1437} height={1437} unoptimized draggable={false} className="h-auto w-[74%]" />
                     </span>
                   </span>
@@ -92,7 +91,7 @@ export default function Home() {
                 style={{ transformOrigin: "center", animation: "hero-orbit-spin 9s linear infinite reverse" }}
               >
                 <svg aria-hidden viewBox="0 0 240 240" className="h-full w-full overflow-visible">
-                  <circle cx="120" cy="120" r="68" fill="none" stroke="#3b8ef8" strokeWidth="0.55" />
+                  <circle cx="120" cy="120" r="68" fill="none" stroke="#40B5FF" strokeWidth="0.55" />
                 </svg>
                 <Link
                   href="/#product-personal-loan"
@@ -104,7 +103,7 @@ export default function Home() {
                     className="orbit-face-inner block h-full w-full"
                     style={{ transformOrigin: "center", animation: "hero-orbit-spin 9s linear infinite" }}
                   >
-                    <span className="orbit-bubble-scale flex h-full w-full items-center justify-center rounded-full bg-[#3b8ef8] transition-transform duration-300 group-hover:scale-110">
+                    <span className="orbit-bubble-scale flex h-full w-full items-center justify-center rounded-full bg-[#40B5FF] transition-transform duration-300 group-hover:scale-110">
                       <Image src="/orbit-per.png" alt="" width={1245} height={1245} unoptimized draggable={false} className="h-auto w-[40%]" />
                     </span>
                   </span>
@@ -117,7 +116,7 @@ export default function Home() {
               <div aria-hidden className="hero-ring hero-ring-c" />
               {/* Clip to the rings' inner hole; scale so logo10's dark disk fills it (no light-blue gap). */}
               {/* Exactly the ring hole (52%) so it doesn't eat the first band or leave a light gap. */}
-              <div className="absolute top-1/2 left-1/2 z-[1] aspect-square w-[52%] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full bg-[#0b2347]">
+              <div className="absolute top-1/2 left-1/2 z-[1] aspect-square w-[52%] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full bg-[#1A2B56]">
                 <Image
                   src="/logo10.png"
                   alt="Finkuby"
@@ -137,57 +136,46 @@ export default function Home() {
               <HeroHeadline />
             </h1>
             <div className="relative mt-40 flex w-fit flex-col items-center lg:mt-56">
-              <p className="absolute bottom-full left-0 mb-4 w-[54vw] text-[11.5px] leading-snug font-medium text-[#0b2347] md:mb-5 md:w-[min(27rem,39vw)] md:text-[13px] lg:mb-6 lg:w-[min(27rem,42vw)] lg:text-[15px] lg:leading-relaxed">
-                <span className="block font-bold">The right loan, without the legwork.</span>
-                <span className="text-[#0b2347]/80">
-                  Finkuby finds financing options that fit your needs, connects you with the right banking partners, and
-                  takes care of the process. You apply. We handle the rest.
+              <p className="absolute bottom-full left-0 mb-10 w-[54vw] text-[11.5px] leading-snug font-medium text-[#1A2B56] md:mb-12 md:w-[min(27rem,39vw)] md:text-[13px] lg:mb-14 lg:w-[min(27rem,42vw)] lg:text-[15px] lg:leading-relaxed">
+                <span className="block font-bold">Endless financial needs, one smart solution.</span>
+                <span className="text-[#1A2B56]/80">
+                  Find the right loan and let us handle the rest.
                 </span>
               </p>
-              <CalculatorLink
-                className="group inline-flex items-center gap-4 rounded-full bg-[#0b2347] py-2 pr-2 pl-7 text-base font-semibold whitespace-nowrap text-white shadow-[0_14px_28px_rgba(11,35,71,0.28)] transition-colors hover:bg-[#163a6b]"
-              >
-                Apply instantly
-                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-[#0b2347] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-                  <svg
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                    className="h-5 w-5"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M7 17 17 7" />
-                    <path d="M9 7h8v8" />
-                  </svg>
-                </span>
-              </CalculatorLink>
-              <a
-                href="#how-it-works"
-                className="mt-3 text-[15px] font-medium text-[#0b2347]/75 underline decoration-dotted decoration-2 underline-offset-[6px] transition-colors hover:text-[#0b2347]"
-              >
-                How it works?
-              </a>
+              <div className="-translate-y-5 flex flex-col items-center sm:-translate-y-6 lg:-translate-y-8">
+                <CalculatorLink
+                  className="group inline-flex items-center gap-4 rounded-full bg-[#1A2B56] py-2 pr-2 pl-7 text-base font-semibold whitespace-nowrap text-white shadow-[0_14px_28px_rgba(26,43,86,0.28)] transition-colors hover:bg-[#1A2B56]"
+                >
+                  Apply instantly
+                  <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-[#1A2B56] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                    <svg
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                      className="h-5 w-5"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M7 17 17 7" />
+                      <path d="M9 7h8v8" />
+                    </svg>
+                  </span>
+                </CalculatorLink>
+                <a
+                  href="#how-it-works"
+                  className="mt-3 text-[15px] font-medium text-[#1A2B56]/75 underline decoration-dotted decoration-2 underline-offset-[6px] transition-colors hover:text-[#1A2B56]"
+                >
+                  How it works?
+                </a>
+              </div>
+              <HeroTrustMarquee />
             </div>
           </div>
         </section>
-        <div className="overflow-hidden bg-white pt-36 pb-10 [&>div>div]:min-h-0">
-          {/* Arrives like a train the first time it comes into view. */}
-          <TrainIn>
-            <CurvedLoop
-              marqueeText="Paperless · Instant · RBI regulated ·"
-              color="#16529c"
-              fontSize={48}
-              curveAmount={80}
-              speed={1}
-              edgeFade={0.1}
-            />
-          </TrainIn>
-        </div>
-        <Stats />
         <Products />
+        <Stats />
         <Process />
         <EmiCalculator />
         <BankPartners />

@@ -8,7 +8,7 @@ import { smoothScrollTo } from "@/lib/smooth-scroll";
 
 function BankCard({ bank }: { bank: (typeof banks)[number] }) {
   return (
-    <div className="flex h-full w-full items-center gap-5 rounded-2xl bg-white px-5 ring-1 ring-[#d4e5fb]">
+    <div className="flex h-full w-full items-center gap-5 rounded-2xl bg-white px-5 shadow-[0_18px_36px_-10px_rgba(100,224,225,0.55)] ring-1 ring-[#d4e5fb]">
       <span className="flex h-24 w-28 shrink-0 items-center justify-center rounded-2xl bg-[#f6f9fd] px-3">
         <Image
           src={bank.logo}
@@ -19,11 +19,11 @@ function BankCard({ bank }: { bank: (typeof banks)[number] }) {
         />
       </span>
       <div className="min-w-0">
-        <p className="truncate text-lg font-bold text-[#0b2347]">{bank.name}</p>
+        <p className="truncate text-lg font-bold text-[#1A2B56]">{bank.name}</p>
         <p className="mt-2 flex gap-3 text-sm whitespace-nowrap text-[#5b6b82]">
           <span>
             Rate{" "}
-            <span className="font-semibold text-[#16529c]">{bank.rate}</span>
+            <span className="font-semibold text-[#1A2B56]">{bank.rate}</span>
           </span>
           <span>
             Approval{" "}
@@ -106,7 +106,7 @@ export function BankCarousel() {
         depthFade={0.55}
         innerShade={0.6}
         cornerRadius={12}
-        innerColor="#16529c"
+        innerColor="#1A2B56"
         backBlur={3}
         cardShadow="none"
         className="!overflow-visible cursor-pointer"

@@ -2,12 +2,12 @@
 
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import CircularGallery from "@/components/CircularGallery";
-import { CalculatorLink } from "@/components/calculator-link";
-import { smoothScrollTo } from "@/lib/smooth-scroll";
+import { EligibilityLink } from "@/components/eligibility-link";
 import { Icon } from "@/components/ui";
 import { useInView, useWebglSlot } from "@/components/webgl-slots";
-import { selectCalculatorProduct } from "@/lib/calculator-selection";
-import { products, type Product } from "@/lib/site";
+import { selectEligibilityLoan } from "@/lib/eligibility-selection";
+import { ELIGIBILITY_URL, products, type Product } from "@/lib/site";
+import { useRouter } from "next/navigation";
 
 // Cards are drawn at W×H CSS px (matching the gallery's 0.78 aspect) and rasterised at SCALE for sharpness.
 const W = 312;
@@ -124,6 +124,7 @@ const progressFor = (index: number) => DWELL + (1 - 2 * DWELL) * (index / (produ
  * (a React Bits CircularGallery) from the first to the last; then the page continues.
  */
 export function ProductGallery({ heading, background }: { heading: ReactNode; background: ReactNode }) {
+  const router = useRouter();
   const trackRef = useRef<HTMLDivElement>(null);
   const iconsRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
@@ -131,6 +132,11 @@ export function ProductGallery({ heading, background }: { heading: ReactNode; ba
   const granted = useWebglSlot(useInView(stageRef, "100% 0px"), 10);
   const [items, setItems] = useState<GalleryItem[] | null>(null);
   const [active, setActive] = useState(0);
+
+  const goEligibility = (product: Product) => {
+    if (product.calculator) selectEligibilityLoan(product.calculator);
+    router.push(ELIGIBILITY_URL);
+  };
 
   useEffect(() => {
     let alive = true;
@@ -209,7 +215,7 @@ export function ProductGallery({ heading, background }: { heading: ReactNode; ba
   return (
     // data-glide-skip: button-triggered glides hop over the pinned range (lib/smooth-scroll.ts).
     <div ref={trackRef} data-glide-skip className="relative" style={{ height: `calc(100svh + ${RANGE_SVH}svh)` }}>
-      {/* Product links (nav menu, hero orbit) land on the scroll position that shows that card. */}
+      {/* Hash anchors for deep links that still scroll this section into view. */}
       {products.map((product, i) => (
         <span
           key={product.slug}
@@ -225,7 +231,7 @@ export function ProductGallery({ heading, background }: { heading: ReactNode; ba
       </div>
 
       <div className="sticky top-0 flex h-svh flex-col overflow-hidden">
-        <div className="pointer-events-none absolute inset-0 [mask-image:linear-gradient(to_bottom,#000,transparent_80%)]">
+        <div className="pointer-events-none absolute inset-0 [mask-image:linear-gradient(to_bottom,#000_0%,#000_55%,transparent_80%)]">
           {background}
         </div>
         <div className="relative px-5 pt-[clamp(1.5rem,8svh,5rem)] sm:px-8">{heading}</div>
@@ -243,7 +249,7 @@ export function ProductGallery({ heading, background }: { heading: ReactNode; ba
               fadeEdges={0.08}
               shadow={0.22}
               shadowColor="#7b8fc8"
-              textColor="#16529c"
+              textColor="#1A2B56"
               font="bold 30px sans-serif"
               showTitles={false}
               scrollEase={0.05}
@@ -259,31 +265,27 @@ export function ProductGallery({ heading, background }: { heading: ReactNode; ba
               aria-label="Our loan products"
               onActiveChange={setActive}
               onItemClick={(_item: GalleryItem, index: number) => {
-                if (index !== active) return scrollToCard(index);
-                const product = products[index];
-                if (product.calculator) selectCalculatorProduct(product.calculator);
-                const calculator = document.getElementById("calculator");
-                if (calculator) smoothScrollTo(calculator);
+                goEligibility(products[index]);
               }}
             />
           ) : null}
         </div>
 
         <div className="relative flex flex-col items-center gap-3 px-5 pt-3 pb-[clamp(1rem,5svh,3rem)] text-center">
-          <CalculatorLink
+          <EligibilityLink
             product={current.calculator}
-            className="group inline-flex items-center gap-3 rounded-full bg-[#0b2347] py-2 pr-2 pl-6 text-sm font-semibold text-white shadow-[0_14px_28px_rgba(11,35,71,0.28)] transition-colors hover:bg-[#163a6b] sm:text-base"
+            className="group inline-flex items-center gap-3 rounded-full bg-[#1A2B56] py-2 pr-2 pl-6 text-sm font-semibold text-white shadow-[0_14px_28px_rgba(26,43,86,0.28)] transition-colors hover:bg-[#40B5FF] sm:text-base"
           >
             Apply Now
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-[#0b2347] transition-transform group-hover:translate-x-0.5">
+            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-[#1A2B56] transition-transform group-hover:translate-x-0.5">
               <Icon name="arrowRight" className="h-4 w-4" />
             </span>
-          </CalculatorLink>
+          </EligibilityLink>
           <div className="flex items-center gap-1.5" aria-hidden>
             {products.map((product, i) => (
               <span
                 key={product.slug}
-                className={`h-1.5 rounded-full transition-all duration-300 ${i === active ? "w-6 bg-[#3b8ef8]" : "w-1.5 bg-[#c9d8ec]"}`}
+                className={`h-1.5 rounded-full transition-all duration-300 ${i === active ? "w-6 bg-[#40B5FF]" : "w-1.5 bg-[#c9d8ec]"}`}
               />
             ))}
           </div>

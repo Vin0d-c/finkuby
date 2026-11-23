@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Eyebrow, Icon } from "@/components/ui";
+import { Icon } from "@/components/ui";
 import { ReflectiveCardLazy } from "@/components/ui/reactbits/lazy";
 import { WebglSwap } from "@/components/webgl-slots";
 import { testimonials } from "@/lib/site";
@@ -11,18 +11,18 @@ type Testimonial = (typeof testimonials)[number];
 function TestimonialCard({ item }: { item: Testimonial }) {
   return (
         <figure
-          className="flex h-full flex-col rounded-3xl bg-white p-7 ring-1 ring-[#e3eaf4] shadow-[0_20px_50px_rgba(11,35,71,0.06)]"
+          className="flex h-full flex-col rounded-3xl bg-white p-7 ring-1 ring-[#e3eaf4] shadow-[0_20px_50px_rgba(26,43,86,0.06)]"
         >
-          <Icon name="quote" className="h-8 w-8 text-[#3ab6fc]" />
+          <Icon name="quote" className="h-8 w-8 text-[#40B5FF]" />
           <blockquote className="mt-4 flex-1 text-[15px] leading-relaxed text-[#3d4f69]">
             “{item.quote}”
           </blockquote>
           <figcaption className="mt-6 flex items-center gap-3 border-t border-[#eef2f8] pt-5">
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#16529c] text-sm font-bold text-white">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#1A2B56] text-sm font-bold text-white">
               {item.initials}
             </span>
             <span>
-              <span className="block font-bold text-[#0b2347]">
+              <span className="block font-bold text-[#1A2B56]">
                 {item.name}
               </span>
               <span className="block text-xs text-[#5b6b82]">
@@ -62,10 +62,12 @@ export function Testimonials() {
       className="relative overflow-hidden bg-white py-24 sm:py-28"
     >
       <div className="relative mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-12">
-        <div className="text-center">
-          <Eyebrow>Customer Reviews</Eyebrow>
-          <h2 className="mt-5 text-[clamp(1.75rem,3.6vw,3rem)] leading-[1.1] font-medium tracking-[-0.025em] md:whitespace-nowrap">
-            <span className="metal-blue-text">Loved by Thousands of Indian Borrowers</span>
+        <div className="flex w-full flex-col items-center text-center">
+          <p className="w-full text-center text-base leading-relaxed text-[#40B5FF] sm:text-lg">
+            Customer Reviews
+          </p>
+          <h2 className="font-agrandir mt-4 w-full text-center text-[clamp(1.85rem,4vw,3.25rem)] leading-[1.12] font-bold tracking-[-0.03em] text-[#1A2B56] md:whitespace-nowrap">
+            Loved by Thousands of Indian Borrowers
           </h2>
         </div>
 

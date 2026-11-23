@@ -34,10 +34,10 @@ export function SlideToApply() {
       onPointerUp={release}
       onPointerCancel={release}
     >
-      <p className="mb-2 text-xs font-semibold tracking-[0.14em] text-[#2f7fe8] uppercase">
+      <p className="mb-2 text-xs font-semibold tracking-[0.14em] text-[#40B5FF] uppercase">
         <ShinyText
           text="or slide to apply"
-          color="#2f7fe8"
+          color="#40B5FF"
           shineColor="#ffffff"
           speed={3}
         />
@@ -50,9 +50,9 @@ export function SlideToApply() {
         step={5}
         showValue={false}
         ariaLabel="Slide to apply. Or use the Get Started Now button."
-        fillColor="#0b2347"
-        trackColor="rgba(22,82,156,0.16)"
-        crestColor="#16529c"
+        fillColor="#1A2B56"
+        trackColor="rgba(26,43,86,0.16)"
+        crestColor="#1A2B56"
       />
     </div>
   );

@@ -1,99 +1,221 @@
 "use client";
 
-import ScrollStack, { ScrollStackItem } from "@/components/ui/reactbits/ScrollStack";
-import GradientText from "@/components/ui/reactbits/GradientText";
-import { Eyebrow, Icon, type IconName } from "@/components/ui";
-import { processSteps } from "@/lib/site";
+import Image from "next/image";
+import { useLayoutEffect, useRef, useState } from "react";
+import {
+  motion,
+  useInView,
+  useReducedMotion,
+} from "motion/react";
 
-const stepIcons: IconName[] = ["send", "scan", "badge", "bank", "wallet"];
+const stages = [
+  {
+    image: "/step1.png",
+    title: "Choose. Check. Connect.",
+    subtitle: "Your journey starts here.",
+    bullets: [
+      "loan type.",
+      "loan eligibility.",
+      "Connect securely using your mobile number.",
+    ],
+  },
+  {
+    image: "/step2.png",
+    title: "Let Finkuby Work Its Magic",
+    subtitle: "We handle the heavy lifting.",
+    bullets: ["connect banks.", "loan application.", "required documents."],
+  },
+  {
+    image: "/step3.png",
+    title: "Loan Disbursal",
+    subtitle: "Your finances, back on track.",
+    bullets: ["Approval", "loan disbursal"],
+  },
+] as const;
 
-// Page palette: hero sky, stats blue, offerings purple, brand deep blue, offerings lavender.
-const glows = ["58,182,252", "59,142,248", "138,104,224", "22,82,156", "169,140,235"];
+const easeOpen = [0.22, 1, 0.36, 1] as const;
+const ARC_PX = 56;
+const GAP_PX = 12;
+
+function StageCard({ stage }: { stage: (typeof stages)[number] }) {
+  return (
+    <article className="relative z-0 flex h-[10.5rem] w-full min-w-0 items-stretch overflow-hidden rounded-full border-[3px] border-[#1A2B56] bg-[linear-gradient(165deg,#dff1ff_0%,#f3f9ff_42%,#ffffff_100%)] pr-5 shadow-[0_0_22px_rgba(100,224,225,0.7),0_0_56px_rgba(100,224,225,0.45)] sm:h-[11.5rem] sm:pr-6">
+      <div className="relative aspect-square h-full w-auto shrink-0 overflow-hidden rounded-full bg-[#eaf6ff]">
+        <Image
+          src={stage.image}
+          alt=""
+          fill
+          sizes="184px"
+          className="object-cover"
+        />
+      </div>
+      <div className="flex min-w-0 flex-1 flex-col justify-center py-2 pl-3 sm:pl-4">
+        <h3 className="text-[12px] leading-snug font-bold tracking-tight text-[#1A2B56] sm:text-[13px]">
+          {stage.title}
+        </h3>
+        <p className="mt-0.5 text-[10px] font-normal text-[#8b95a6] sm:text-[11px]">
+          {stage.subtitle}
+        </p>
+        <ul className="mt-1.5 space-y-0.5 text-[9px] leading-snug text-[#40B5FF] sm:text-[10px]">
+          {stage.bullets.map((bullet) => (
+            <li key={bullet} className="flex items-start gap-1.5">
+              <span
+                aria-hidden
+                className="mt-[0.35em] h-1 w-1 shrink-0 rounded-full bg-[#40B5FF]"
+              />
+              <span>{bullet}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </article>
+  );
+}
+
+function CrescentSvg() {
+  return (
+    <svg viewBox="0 0 56 120" className="h-full w-full text-[#64E0E1]" aria-hidden>
+      <path
+        fill="currentColor"
+        d="M4 2c30 12 46 34 46 58S34 106 4 118c20-12 30-30 30-58S24 14 4 2z"
+      />
+    </svg>
+  );
+}
+
+function DesktopFan({ reduce }: { reduce: boolean | null }) {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(trackRef, { once: true, amount: 0.35 });
+  const [slot, setSlot] = useState(0);
+
+  useLayoutEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    const measure = () => {
+      const width = el.clientWidth;
+      setSlot(Math.max(0, (width - 2 * ARC_PX - 2 * GAP_PX) / 3));
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  const open = reduce || inView;
+  const step = slot + ARC_PX + GAP_PX;
+  const ready = slot > 0;
+
+  return (
+    <div
+      ref={trackRef}
+      className="relative mt-16 hidden h-[12rem] w-full lg:block xl:h-[13rem]"
+    >
+      {stages.map((stage, i) => (
+        <motion.div
+          key={stage.title}
+          className="absolute inset-y-0 left-0 flex items-center"
+          style={{
+            width: ready ? slot : undefined,
+            zIndex: stages.length - i,
+          }}
+          initial={false}
+          animate={
+            !ready
+              ? { x: 0, opacity: i === 0 ? 1 : 0, scale: 1 }
+              : open
+                ? { x: i * step, opacity: 1, scale: 1 }
+                : {
+                    x: 0,
+                    opacity: i === 0 ? 1 : 0.55,
+                    scale: i === 0 ? 1 : 0.94,
+                  }
+          }
+          transition={{
+            duration: reduce ? 0 : 0.9,
+            delay: reduce || !open ? 0 : 0.06 + i * 0.14,
+            ease: easeOpen,
+          }}
+        >
+          <StageCard stage={stage} />
+        </motion.div>
+      ))}
+
+      {[0, 1].map((i) => (
+        <motion.div
+          key={`arc-${i}`}
+          aria-hidden
+          className="pointer-events-none absolute inset-y-0 left-0 flex origin-left items-center"
+          style={{ width: ARC_PX, zIndex: 1 }}
+          initial={false}
+          animate={
+            !ready
+              ? { x: 0, opacity: 0, scale: 0.35, rotate: -24 }
+              : open
+                ? {
+                    x: (i + 1) * slot + i * (ARC_PX + GAP_PX) - 8,
+                    opacity: 1,
+                    scale: 1,
+                    rotate: 0,
+                  }
+                : { x: 0, opacity: 0, scale: 0.35, rotate: -24 }
+          }
+          transition={{
+            duration: reduce ? 0 : 0.75,
+            delay: reduce || !open ? 0 : 0.22 + i * 0.14,
+            ease: easeOpen,
+          }}
+        >
+          <div className="h-[11rem] w-full xl:h-[12rem]">
+            <CrescentSvg />
+          </div>
+        </motion.div>
+      ))}
+    </div>
+  );
+}
 
 export function Process() {
+  const reduce = useReducedMotion();
+
   return (
     <section
       id="how-it-works"
-      className="relative overflow-clip bg-[linear-gradient(180deg,#ffffff,#f3f8fe_50%,#ffffff)] py-24 text-[#0b2347] sm:py-28"
+      className="relative overflow-clip bg-white pt-14 pb-32 text-[#1A2B56] sm:pt-16 sm:pb-40"
     >
-      <div className="relative mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-12">
-        <div className="text-center">
-          <Eyebrow>Process Flow</Eyebrow>
-          <h2 className="mt-5 text-[clamp(1.75rem,4vw,3.25rem)] leading-[1.08] font-black tracking-[-0.03em] sm:whitespace-nowrap">
-            {/* One left-to-right sweep across the whole title, easing gently back and forth. */}
-            <GradientText
-              colors={["#3b8ef8", "#7c5cff", "#c58cf0"]}
-              animationSpeed={10}
-              variant="linear"
-              angle={90}
-              scale={1.4}
-            >
-              How Finkuby Accelerates Capital
-            </GradientText>
+      <div className="relative mx-auto w-full max-w-[1400px] px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="font-agrandir text-[clamp(1.85rem,4vw,3.25rem)] leading-[1.12] font-bold tracking-[-0.03em] text-[#1A2B56]">
+            Your Loan Journey, Simplified
           </h2>
+          <p className="mt-4 text-base leading-relaxed text-[#40B5FF] sm:text-lg">
+            Three simple stages, From finding the right loan to getting it
+            disbursed.
+          </p>
         </div>
 
-        <div className="mt-14">
-          <ScrollStack
-            useWindowScroll
-            smoothScroll={false}
-            snap={false}
-            stackPosition="7.5rem"
-            itemDistance={56}
-            itemStackDistance={16}
-            baseScale={0.9}
-            itemScale={0.02}
-            dimAmount={0.03}
-            holdDistance={80}
-            advanceOnClick
-          >
-            {processSteps.map((item, index) => {
-              const glow = glows[index % glows.length];
-              return (
-              <ScrollStackItem
-                key={item.num}
-                itemClassName="cursor-pointer !h-auto !rounded-[3rem] !px-8 !py-7 sm:!px-12 sm:!py-9 md:!rounded-full md:!px-24 md:!py-10"
-                style={{
-                  background: "#ffffff",
-                  color: "#0b2347",
-                  boxShadow: `0 0 24px rgba(${glow},0.35), 0 0 64px rgba(${glow},0.28), inset 0 0 0 2px rgb(${glow})`,
-                  ["--glow" as string]: glow,
-                }}
-              >
-                <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-                  <div className="max-w-2xl">
-                    <div className="flex items-center gap-4">
-                      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[rgba(var(--glow),0.12)] text-[rgb(var(--glow))]">
-                        <Icon name={stepIcons[index]} className="h-6 w-6" />
-                      </span>
-                      <div>
-                        <p className="text-[11px] font-semibold tracking-[0.16em] text-[rgb(var(--glow))] uppercase">
-                          Stage {item.num}
-                        </p>
-                        <p className="text-xs text-[#8b95a6]">{item.subtitle}</p>
-                      </div>
-                    </div>
-                    <h3 className="mt-4 text-2xl font-bold tracking-tight">
-                      {item.title}
-                    </h3>
-                    <p className="mt-2 text-[15px] leading-relaxed text-[#5b6b82]">
-                      {item.description}
-                    </p>
-                  </div>
-                  <div className="whitespace-nowrap md:shrink-0 md:text-right">
-                    <p className="text-[11px] font-semibold tracking-[0.16em] text-[#8b95a6] uppercase">
-                      Automation rating
-                    </p>
-                    <p className="mt-1 text-2xl font-bold text-[rgb(var(--glow))]">
-                      {item.rating}
-                    </p>
-                  </div>
-                </div>
-              </ScrollStackItem>
-              );
-            })}
-          </ScrollStack>
+        {/* Mobile: stack downward from the first capsule. */}
+        <div className="mt-14 flex flex-col gap-10 lg:hidden">
+          {stages.map((stage, i) => (
+            <motion.div
+              key={stage.title}
+              initial={
+                reduce ? false : { opacity: i === 0 ? 1 : 0, y: i === 0 ? 0 : 28 }
+              }
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.35 }}
+              transition={{
+                duration: reduce ? 0 : 0.7,
+                delay: reduce ? 0 : i * 0.12,
+                ease: easeOpen,
+              }}
+            >
+              <StageCard stage={stage} />
+            </motion.div>
+          ))}
         </div>
+
+        {/* Desktop: stack on the first capsule, then fan open with arcs. */}
+        <DesktopFan reduce={reduce} />
       </div>
     </section>
   );

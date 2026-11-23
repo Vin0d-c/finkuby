@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { CalculatorLink } from "@/components/calculator-link";
+import { EligibilityLink } from "@/components/eligibility-link";
 import { NewsletterForm } from "@/components/newsletter-form";
 import { Icon, LinkedInIcon } from "@/components/ui";
 import {
@@ -64,7 +65,7 @@ function LinkGroup({ title, items }: { title: string; items: FooterItem[] }) {
 
 export function SiteFooter() {
   return (
-    <footer className="bg-[#061633] text-[#a9b8cf]">
+    <footer className="bg-[#1A2B56] text-[#a9b8cf]">
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-12">
         {/* Brand, contact and newsletter */}
         <div className="grid gap-10 border-b border-white/[0.07] pt-16 pb-12 lg:grid-cols-12">
@@ -72,14 +73,14 @@ export function SiteFooter() {
             <Link
               href="/"
               aria-label="Finkuby Technologies home"
-              className="relative block h-[60px] w-[200px] overflow-hidden"
+              className="relative block h-[44px] w-[148px] overflow-hidden"
             >
               {/* The file is a 2000×2000 square with the wordmark across its middle; crop to it. */}
               <Image
-                src="/LOGO7.png"
+                src="/logo12.png"
                 alt="Finkuby Technologies"
                 fill
-                sizes="200px"
+                sizes="148px"
                 className="object-cover object-[50%_51%]"
               />
             </Link>
@@ -93,7 +94,7 @@ export function SiteFooter() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Finkuby on LinkedIn"
-              className="mt-6 inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.06] text-white ring-1 ring-white/10 transition-colors hover:bg-[#3ab6fc]"
+              className="mt-6 inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.06] text-white ring-1 ring-white/10 transition-colors hover:bg-[#40B5FF]"
             >
               <LinkedInIcon />
             </a>
@@ -107,7 +108,7 @@ export function SiteFooter() {
                   href={`mailto:${contact.email}`}
                   className="flex items-start gap-2.5 transition-colors hover:text-white"
                 >
-                  <Icon name="mail" className="mt-0.5 h-4 w-4 shrink-0 text-[#3ab6fc]" />
+                  <Icon name="mail" className="mt-0.5 h-4 w-4 shrink-0 text-[#40B5FF]" />
                   {contact.email}
                 </a>
               </li>
@@ -116,12 +117,12 @@ export function SiteFooter() {
                   href={contact.phoneHref}
                   className="flex items-start gap-2.5 transition-colors hover:text-white"
                 >
-                  <Icon name="phone" className="mt-0.5 h-4 w-4 shrink-0 text-[#3ab6fc]" />
+                  <Icon name="phone" className="mt-0.5 h-4 w-4 shrink-0 text-[#40B5FF]" />
                   {contact.phone}
                 </a>
               </li>
               <li className="flex items-start gap-2.5">
-                <Icon name="pin" className="mt-0.5 h-4 w-4 shrink-0 text-[#3ab6fc]" />
+                <Icon name="pin" className="mt-0.5 h-4 w-4 shrink-0 text-[#40B5FF]" />
                 <address className="not-italic leading-relaxed">{contact.address}</address>
               </li>
             </ul>
@@ -136,20 +137,29 @@ export function SiteFooter() {
           </div>
         </div>
 
-        {/* Link directory */}
-        <div className="grid grid-cols-2 gap-x-8 gap-y-12 py-12 md:grid-cols-3 lg:grid-cols-6">
+        {/* Link directory — six equal columns; products occupy two with a balanced split. */}
+        <div className="grid grid-cols-2 gap-x-8 gap-y-12 py-12 sm:grid-cols-3 lg:grid-cols-6">
           <nav aria-label="Products" className="col-span-2">
             <h2 className={heading}>Products</h2>
-            <ul className="mt-4 grid grid-cols-2 gap-x-6 gap-y-2.5">
+            <ul className="mt-4 columns-2 gap-x-8 [column-fill:balance]">
               {footerProducts.map((item) => (
-                <li key={item.label}>
-                  <FooterEntry item={item} />
+                <li key={item.label} className="mb-2.5 break-inside-avoid">
+                  {item.calculator ? (
+                    <EligibilityLink
+                      product={item.calculator}
+                      className={footerLink}
+                    >
+                      {item.label}
+                    </EligibilityLink>
+                  ) : (
+                    <span className={linkText}>{item.label}</span>
+                  )}
                 </li>
               ))}
             </ul>
           </nav>
           {stacks.map((groups) => (
-            <div key={groups[0].title} className="grid content-start gap-10">
+            <div key={groups[0].title} className="min-w-0 content-start space-y-10">
               {groups.map((group) => (
                 <LinkGroup key={group.title} title={group.title} items={group.items} />
               ))}

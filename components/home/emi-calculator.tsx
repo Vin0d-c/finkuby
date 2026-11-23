@@ -4,9 +4,10 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useMotionValueEvent, useSpring } from "motion/react";
 import { LoanApplicationForm } from "@/components/loan-application-form";
 import { Modal } from "@/components/modal";
-import CometDial from "@/components/ui/reactbits/CometDial";
 import Counter from "@/components/ui/reactbits/Counter";
-import OptionWheel from "@/components/ui/reactbits/OptionWheel";
+import OptionWheel, {
+  type OptionWheelHandle,
+} from "@/components/ui/reactbits/OptionWheel";
 import { SectionHeading } from "@/components/ui";
 import {
   CALCULATOR_EVENT,
@@ -104,13 +105,13 @@ function DonutChip({
       }}
     >
       <div
-        className={`donut-chip ${alt ? "donut-chip-alt" : ""} rounded-xl bg-white/90 px-2.5 py-1.5 text-left whitespace-nowrap shadow-[0_10px_24px_rgba(11,35,71,0.14)] ring-1 ring-[#0b2347]/8 backdrop-blur-sm will-change-transform`}
+        className={`donut-chip ${alt ? "donut-chip-alt" : ""} rounded-xl bg-white/90 px-2.5 py-1.5 text-left whitespace-nowrap shadow-[0_10px_24px_rgba(26,43,86,0.14)] ring-1 ring-[#1A2B56]/8 backdrop-blur-sm will-change-transform`}
       >
         <p className="flex items-center gap-1.5 text-[9px] font-semibold tracking-[0.14em] text-[#5b6b82] uppercase">
           <span className="h-1.5 w-1.5 rounded-full" style={{ background: dot }} />
           {label}
         </p>
-        <p className="mt-0.5 text-xs font-bold text-[#0b2347]">{value}</p>
+        <p className="mt-0.5 text-xs font-bold text-[#1A2B56]">{value}</p>
       </div>
     </div>
   );
@@ -150,17 +151,17 @@ function EmiDonut({
       <svg
         viewBox="0 0 180 180"
         // Soft halo that follows the ring's shape (not a box shadow).
-        className="h-full w-full -rotate-90 [filter:drop-shadow(0_0_6px_rgba(58,182,252,0.45))_drop-shadow(0_0_16px_rgba(59,142,248,0.25))]"
+        className="h-full w-full -rotate-90 [filter:drop-shadow(0_0_6px_rgba(64,181,255,0.45))_drop-shadow(0_0_16px_rgba(64,181,255,0.25))]"
         aria-hidden
       >
         {split < MIN_SWEEP ? (
-          <circle cx="90" cy="90" r="70" fill="none" stroke="#3ab6fc" strokeWidth="28" />
+          <circle cx="90" cy="90" r="70" fill="none" stroke="#40B5FF" strokeWidth="28" />
         ) : 2 * Math.PI - split < MIN_SWEEP ? (
-          <circle cx="90" cy="90" r="70" fill="none" stroke="#16529c" strokeWidth="28" />
+          <circle cx="90" cy="90" r="70" fill="none" stroke="#1A2B56" strokeWidth="28" />
         ) : (
           <>
-            {segment(split, 2 * Math.PI, "#3ab6fc")}
-            {segment(0, split, "#16529c")}
+            {segment(split, 2 * Math.PI, "#40B5FF")}
+            {segment(0, split, "#1A2B56")}
           </>
         )}
       </svg>
@@ -169,13 +170,13 @@ function EmiDonut({
         angle={split + (2 * Math.PI - split) / 2}
         label="Principal"
         value={rupees(principal)}
-        dot="#3ab6fc"
+        dot="#40B5FF"
       />
       <DonutChip
         angle={split / 2}
         label="Interest"
         value={rupees(interest)}
-        dot="#16529c"
+        dot="#1A2B56"
         alt
       />
     </div>
@@ -205,6 +206,24 @@ const CALC_WASH_MASK =
 function groupDigits(raw: string) {
   const digits = raw.replace(/\D/g, "").replace(/^0+(?=\d)/, "").slice(0, 9);
   return digits ? Number(digits).toLocaleString("en-IN") : "";
+}
+
+function PencilIcon({ className = "h-3.5 w-3.5" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden
+      className={className}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M12 20h9" />
+      <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" />
+    </svg>
+  );
 }
 
 /** Slider with a typed value box, matching the live calculator's behaviour. */
@@ -256,40 +275,66 @@ function SliderRow({
       <div className="flex items-center justify-between gap-4">
         <label
           htmlFor={`${id}-input`}
-          className="text-[13px] font-semibold text-[#0b2347]"
+          className="text-[13px] font-semibold text-[#1A2B56]"
         >
           {label}
         </label>
-        <input
-          id={`${id}-input`}
-          type="text"
-          inputMode="decimal"
-          ref={inputRef}
-          value={draft ?? display(value)}
-          onFocus={() => setDraft(boxed ? groupDigits(String(value)) : String(value))}
-          onChange={(event) => {
-            const raw = event.target.value;
-            if (!boxed) return setDraft(raw);
-            const caret = event.target.selectionStart ?? raw.length;
-            caretDigits.current = raw.slice(0, caret).replace(/\D/g, "").length;
-            setDraft(groupDigits(raw));
-          }}
-          onBlur={() => {
-            // An emptied field keeps the old value instead of snapping to the minimum.
-            const parsed = draft?.trim() ? parse(draft) : NaN;
-            if (!Number.isNaN(parsed)) onChange(clamp(parsed, min, max));
-            setDraft(null);
-          }}
-          onKeyDown={(event) => {
-            if (event.key === "Enter") event.currentTarget.blur();
-          }}
-          title={boxed ? `Type an amount between ${display(min)} and ${display(max)}` : undefined}
-          className={
-            boxed
-              ? "w-[9.5rem] cursor-text rounded-lg border border-transparent bg-transparent px-2.5 py-1.5 text-right text-[15px] font-bold text-[#0b2347] outline-none transition-[border-color,background-color,box-shadow] duration-200 hover:border-[#3ab6fc] hover:bg-white/70 focus:border-[#3ab6fc] focus:bg-white focus:shadow-[0_0_0_3px_rgba(58,182,252,0.18)]"
-              : "w-[9.5rem] bg-transparent px-1 py-2 text-right text-[15px] font-bold text-[#0b2347] outline-none"
-          }
-        />
+        <div className="flex items-center gap-1.5">
+          <input
+            id={`${id}-input`}
+            type="text"
+            inputMode="decimal"
+            ref={inputRef}
+            value={draft ?? display(value)}
+            onFocus={() => setDraft(boxed ? groupDigits(String(value)) : String(value))}
+            onChange={(event) => {
+              const raw = event.target.value;
+              if (!boxed) return setDraft(raw);
+              const caret = event.target.selectionStart ?? raw.length;
+              caretDigits.current = raw.slice(0, caret).replace(/\D/g, "").length;
+              setDraft(groupDigits(raw));
+            }}
+            onBlur={() => {
+              // An emptied field keeps the old value instead of snapping to the minimum.
+              const parsed = draft?.trim() ? parse(draft) : NaN;
+              if (!Number.isNaN(parsed)) onChange(clamp(parsed, min, max));
+              setDraft(null);
+            }}
+            onKeyDown={(event) => {
+              if (event.key === "Enter") event.currentTarget.blur();
+            }}
+            title={
+              boxed
+                ? `Type an amount between ${display(min)} and ${display(max)}`
+                : "Click to edit"
+            }
+            className={`w-[9.5rem] cursor-text rounded-lg border bg-transparent text-right text-[15px] font-bold text-[#1A2B56] outline-none transition-[border-color,background-color,box-shadow] duration-200 hover:border-[#40B5FF] hover:bg-white/70 focus:border-[#40B5FF] focus:bg-white focus:shadow-[0_0_0_3px_rgba(64,181,255,0.18)] ${
+              boxed ? "px-2.5 py-1.5" : "px-1 py-2"
+            } ${
+              draft != null
+                ? "border-[#40B5FF] bg-white shadow-[0_0_0_3px_rgba(64,181,255,0.18)]"
+                : "border-transparent"
+            }`}
+          />
+          <button
+            type="button"
+            aria-label={`Edit ${label}`}
+            title={`Edit ${label}`}
+            onMouseDown={(event) => {
+              // Keep focus from leaving the field before we move it to the input.
+              event.preventDefault();
+            }}
+            onClick={() => {
+              const input = inputRef.current;
+              if (!input) return;
+              input.focus();
+              input.select();
+            }}
+            className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[#40B5FF] transition-colors hover:bg-[#40B5FF]/12 hover:text-[#1A2B56] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#40B5FF]"
+          >
+            <PencilIcon className="h-3.5 w-3.5" />
+          </button>
+        </div>
       </div>
       <input
         type="range"
@@ -325,9 +370,8 @@ export function EmiCalculator() {
   // product, kept in the wheel's list even if it isn't normally a picker item.
   const [wheel, setWheel] = useState({ epoch: 0, anchor: calculatorProducts[0].key });
 
-  // The wheel rolls on its own until the visitor hovers it or touches any control; then it
-  // stops for the rest of the visit (state resets only on a page reload).
-  const [autoRoll, setAutoRoll] = useState(true);
+  // Auto-roll paused for now; keep the stop helpers so it can be re-enabled later.
+  const [autoRoll, setAutoRoll] = useState(false);
   const stopAutoRoll = () => setAutoRoll(false);
 
   const choose = (key: string | null) => {
@@ -361,6 +405,48 @@ export function EmiCalculator() {
   const pickerProducts = calculatorProducts.filter(
     (item) => item.inPicker || item.key === wheel.anchor,
   );
+  const wheelRef = useRef<OptionWheelHandle>(null);
+  const loanMenuRef = useRef<HTMLDivElement>(null);
+  const [loanMenuOpen, setLoanMenuOpen] = useState(false);
+  // Step the live wheel so it eases like a drag/scroll, instead of remounting.
+  const stepWheel = (delta: number) => {
+    wheelRef.current?.step(delta);
+  };
+  const chooseLoanFromMenu = (key: string) => {
+    setLoanMenuOpen(false);
+    const n = pickerProducts.length;
+    if (n < 1 || key === product.key) return;
+    const i = Math.max(
+      0,
+      pickerProducts.findIndex((item) => item.key === product.key),
+    );
+    const j = pickerProducts.findIndex((item) => item.key === key);
+    if (j < 0) return;
+    let delta = j - i;
+    if (n > 1) {
+      if (delta > n / 2) delta -= n;
+      else if (delta < -n / 2) delta += n;
+    }
+    wheelRef.current?.step(delta);
+  };
+
+  useEffect(() => {
+    if (!loanMenuOpen) return;
+    const onPointer = (event: PointerEvent) => {
+      if (!loanMenuRef.current?.contains(event.target as Node)) {
+        setLoanMenuOpen(false);
+      }
+    };
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setLoanMenuOpen(false);
+    };
+    document.addEventListener("pointerdown", onPointer);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("pointerdown", onPointer);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [loanMenuOpen]);
 
   const emi = emiFor(amount, rate, tenure);
   const months = tenure * 12;
@@ -371,7 +457,7 @@ export function EmiCalculator() {
   return (
     <section
       id="calculator"
-      className="relative overflow-hidden bg-white pt-14 pb-32 text-[#0b2347] sm:pt-16 sm:pb-44"
+      className="relative overflow-hidden bg-white pt-20 pb-32 text-[#1A2B56] sm:pt-24 sm:pb-44"
     >
       <div
         aria-hidden
@@ -392,6 +478,7 @@ export function EmiCalculator() {
           <SectionHeading
             title="Choose Your Loan. Plan Your EMI."
             accent="Apply"
+            accentClass="bg-[linear-gradient(180deg,#64E0E1_0%,#64E0E1_55%,#1A2B56_100%)] bg-clip-text text-transparent"
           />
         </div>
 
@@ -412,7 +499,53 @@ export function EmiCalculator() {
                 "linear-gradient(to bottom, transparent 0%, #000 10%, #000 90%, transparent 100%)",
             }}
           >
+            {/* White capsule behind the focused loan; up/down arrows step the wheel. */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute top-1/2 right-6 left-5 z-[5] h-[3.35rem] -translate-y-1/2 rounded-full border-2 border-[#1A2B56] bg-white sm:left-7 lg:right-10 lg:left-12"
+            />
+            <div className="absolute top-1/2 right-7 z-20 flex -translate-y-1/2 flex-col items-center sm:right-8 lg:right-12">
+              <button
+                type="button"
+                aria-label="Show previous loan"
+                onClick={() => stepWheel(-1)}
+                className="flex h-5 w-8 items-center justify-center text-[#1A2B56] transition-colors hover:text-[#40B5FF] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1A2B56]"
+              >
+                <svg
+                  viewBox="0 0 20 20"
+                  aria-hidden
+                  className="h-3.5 w-3.5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.25"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M5 12.5 10 7.5 15 12.5" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                aria-label="Show next loan"
+                onClick={() => stepWheel(1)}
+                className="flex h-5 w-8 items-center justify-center text-[#1A2B56] transition-colors hover:text-[#40B5FF] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1A2B56]"
+              >
+                <svg
+                  viewBox="0 0 20 20"
+                  aria-hidden
+                  className="h-3.5 w-3.5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.25"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M5 7.5 10 12.5 15 7.5" />
+                </svg>
+              </button>
+            </div>
             <OptionWheel
+              ref={wheelRef}
               key={wheel.epoch}
               // Listed twice so the looping wheel has enough rows to show three faded
               // neighbours on both sides of the selection.
@@ -426,8 +559,8 @@ export function EmiCalculator() {
                 if (!picked || picked.key === product.key) return;
                 choose(picked.key);
               }}
-              fontSize={1.75}
-              spacing={1.42}
+              fontSize={1.5}
+              spacing={1.62}
               curve={1}
               tilt={8}
               blur={1.6}
@@ -436,9 +569,9 @@ export function EmiCalculator() {
               inset={28}
               loop
               autoAdvance={autoRoll ? 1000 : 0}
-              textColor="rgba(255,255,255,0.8)"
-              activeColor="#ffffff"
-              className="font-sans !overflow-visible [&_[role=option][aria-selected=true]]:[text-shadow:0_2px_14px_rgba(11,47,99,0.28)] [&_[role=option]]:!font-normal [&_[role=option]]:uppercase [&_[role=option]]:tracking-[0.01em] [&_[role=option][aria-selected=true]]:!font-semibold"
+              textColor="rgba(26,43,86,0.45)"
+              activeColor="#1A2B56"
+              className="relative z-10 font-sans !overflow-visible [&_[role=option]]:!font-medium [&_[role=option]]:!normal-case [&_[role=option]]:tracking-normal [&_[role=option][aria-selected=true]]:!font-semibold"
             />
           </div>
           <div className="relative z-10 grid items-stretch gap-y-12 lg:grid-cols-3 lg:gap-x-16">
@@ -452,7 +585,7 @@ export function EmiCalculator() {
                 <select
                   value={product.key}
                   onChange={(event) => chooseExternal(event.target.value)}
-                  className="mt-2 w-full cursor-pointer appearance-none rounded-2xl border border-[#d5e3f2] bg-white bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 20 20%22 fill=%22%2316529c%22><path d=%22M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z%22/></svg>')] bg-[length:18px] bg-[right_14px_center] bg-no-repeat px-4 py-3 text-[15px] font-semibold text-[#0b2347] shadow-[0_1px_2px_rgba(11,35,71,0.04)] outline-none focus:border-[#3ab6fc] focus:ring-3 focus:ring-[#3ab6fc]/20"
+                  className="mt-2 w-full cursor-pointer appearance-none rounded-2xl border border-[#d5e3f2] bg-white bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 20 20%22 fill=%22%2316529c%22><path d=%22M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z%22/></svg>')] bg-[length:18px] bg-[right_14px_center] bg-no-repeat px-4 py-3 text-[15px] font-semibold text-[#1A2B56] shadow-[0_1px_2px_rgba(26,43,86,0.04)] outline-none focus:border-[#40B5FF] focus:ring-3 focus:ring-[#40B5FF]/20"
                 >
                   {pickerProducts.map((item) => (
                     <option key={item.key} value={item.key}>
@@ -462,62 +595,102 @@ export function EmiCalculator() {
                 </select>
               </label>
 
-              <div className="grid gap-8">
-                <SliderRow
-                  label="Loan Amount"
-                  boxed
-                  value={amount}
-                  min={CALC_MIN_AMOUNT}
-                  max={CALC_MAX_AMOUNT}
-                  step={CALC_AMOUNT_STEP}
-                  display={rupees}
-                  parse={(raw) => Number(raw.replace(/[^0-9]/g, ""))}
-                  onChange={setAmount}
-                  ticks={[
-                    compactAmount(CALC_MIN_AMOUNT),
-                    compactAmount(CALC_MAX_AMOUNT),
-                  ]}
-                />
-                <SliderRow
-                  label="Interest Rate (% p.a.)"
-                  value={rate}
-                  min={product.minRate}
-                  max={CALC_MAX_RATE}
-                  step={0.01}
-                  display={(value) => `${value.toFixed(2)}%`}
-                  parse={(raw) =>
-                    Math.round(parseFloat(raw.replace(/[^0-9.]/g, "")) * 100) /
-                    100
-                  }
-                  onChange={setRate}
-                  ticks={[`${product.minRate}%`, `${CALC_MAX_RATE}%`]}
-                />
-                <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-5">
-                  <div>
-                    <p className="text-[13px] font-semibold text-[#0b2347]">
-                      Loan Tenure
-                    </p>
-                    <p className="mt-2 text-[15px] font-bold text-[#0b2347]">
-                      {tenure} {tenure === 1 ? "Year" : "Years"}
-                    </p>
-                    <p className="mt-1 text-[11px] font-medium text-[#5b6b82]">
-                      1 – {product.maxTenure} Years
-                    </p>
-                  </div>
-                  <div className="flex shrink-0 justify-center">
-                    <CometDial
-                      value={tenure}
-                      min={1}
-                      max={product.maxTenure}
-                      step={1}
-                      unit="yr"
-                      label="Tenure"
-                      accent="#3ab6fc"
-                      ink="#0b2347"
-                      size={108}
-                      onChange={setTenure}
-                    />
-                  </div>
+              <div>
+                <div ref={loanMenuRef} className="relative -mt-4 mb-8 flex justify-center">
+                  <h3 className="flex items-center justify-center gap-1.5 text-center text-xl font-extrabold tracking-tight text-[#1A2B56] sm:text-2xl">
+                    <span>{product.label}</span>
+                    <button
+                      type="button"
+                      aria-label="Choose loan type"
+                      aria-haspopup="listbox"
+                      aria-expanded={loanMenuOpen}
+                      onClick={() => setLoanMenuOpen((open) => !open)}
+                      className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[#1A2B56] transition-colors hover:bg-[#1A2B56]/8 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1A2B56]"
+                    >
+                      <svg
+                        viewBox="0 0 20 20"
+                        aria-hidden
+                        className={`h-4 w-4 transition-transform ${loanMenuOpen ? "rotate-180" : ""}`}
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.25"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M5 7.5 10 12.5 15 7.5" />
+                      </svg>
+                    </button>
+                  </h3>
+                  {loanMenuOpen ? (
+                    <ul
+                      role="listbox"
+                      aria-label="Loan types"
+                      className="absolute top-[calc(100%+0.5rem)] left-1/2 z-30 max-h-64 w-[min(100%,16rem)] -translate-x-1/2 overflow-auto rounded-2xl border border-[#d5e3f2] bg-white py-1.5 shadow-[0_16px_40px_rgba(26,43,86,0.14)]"
+                    >
+                      {pickerProducts.map((item) => {
+                        const selected = item.key === product.key;
+                        return (
+                          <li key={item.key} role="option" aria-selected={selected}>
+                            <button
+                              type="button"
+                              onClick={() => chooseLoanFromMenu(item.key)}
+                              className={`flex w-full px-4 py-2.5 text-left text-[15px] transition-colors hover:bg-[#eef5fc] ${
+                                selected
+                                  ? "font-semibold text-[#1A2B56]"
+                                  : "font-medium text-[#3a4d66]"
+                              }`}
+                            >
+                              {item.label}
+                            </button>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  ) : null}
+                </div>
+                <div className="grid gap-8">
+                  <SliderRow
+                    label="Loan Amount"
+                    boxed
+                    value={amount}
+                    min={CALC_MIN_AMOUNT}
+                    max={CALC_MAX_AMOUNT}
+                    step={CALC_AMOUNT_STEP}
+                    display={rupees}
+                    parse={(raw) => Number(raw.replace(/[^0-9]/g, ""))}
+                    onChange={setAmount}
+                    ticks={[
+                      compactAmount(CALC_MIN_AMOUNT),
+                      compactAmount(CALC_MAX_AMOUNT),
+                    ]}
+                  />
+                  <SliderRow
+                    label="Interest Rate (% p.a.)"
+                    value={rate}
+                    min={product.minRate}
+                    max={CALC_MAX_RATE}
+                    step={0.01}
+                    display={(value) => `${value.toFixed(2)}%`}
+                    parse={(raw) =>
+                      Math.round(parseFloat(raw.replace(/[^0-9.]/g, "")) * 100) /
+                      100
+                    }
+                    onChange={setRate}
+                    ticks={[`${product.minRate}%`, `${CALC_MAX_RATE}%`]}
+                  />
+                  <SliderRow
+                    label="Loan Tenure"
+                    value={tenure}
+                    min={1}
+                    max={product.maxTenure}
+                    step={1}
+                    display={(value) =>
+                      `${value} ${value === 1 ? "Year" : "Years"}`
+                    }
+                    parse={(raw) => Number(raw.replace(/[^0-9]/g, ""))}
+                    onChange={setTenure}
+                    ticks={[`1 Year`, `${product.maxTenure} Years`]}
+                  />
                 </div>
               </div>
             </div>
@@ -529,7 +702,7 @@ export function EmiCalculator() {
               <p className="text-[11px] font-semibold tracking-[0.16em] text-[#5b6b82] uppercase">
                 Estimated Instalment
               </p>
-              <p className="mt-3 flex items-baseline justify-center gap-1.5 text-[#0b2347]">
+              <p className="mt-3 flex items-baseline justify-center gap-1.5 text-[#1A2B56]">
                 <span className="text-[clamp(2.1rem,2.9vw,2.65rem)] leading-none font-black tracking-[-0.04em]">
                   <Counter
                     value={Math.round(emi)}
@@ -558,7 +731,7 @@ export function EmiCalculator() {
                     <dt className="text-[10px] font-semibold tracking-[0.14em] text-[#5b6b82] uppercase">
                       Total Payable
                     </dt>
-                    <dd className="mt-1 text-sm font-bold text-[#0b2347]">
+                    <dd className="mt-1 text-sm font-bold text-[#1A2B56]">
                       {rupees(total)}
                     </dd>
                   </div>
@@ -566,7 +739,7 @@ export function EmiCalculator() {
                     <dt className="text-[10px] font-semibold tracking-[0.14em] text-[#5b6b82] uppercase">
                       Repayment Period
                     </dt>
-                    <dd className="mt-1 text-sm font-bold whitespace-nowrap text-[#0b2347]">
+                    <dd className="mt-1 text-sm font-bold whitespace-nowrap text-[#1A2B56]">
                       {months} Installments
                     </dd>
                   </div>
@@ -578,7 +751,7 @@ export function EmiCalculator() {
               <button
                 type="button"
                 onClick={() => setApplying(true)}
-                className="w-56 rounded-full bg-[#0b2347] px-6 py-3.5 text-[15px] font-semibold text-white transition-colors hover:bg-[#163a6b]"
+                className="w-56 rounded-full bg-[#1A2B56] px-6 py-3.5 text-[15px] font-semibold text-white transition-colors hover:bg-[#1A2B56]"
               >
                 Apply for this Loan
               </button>

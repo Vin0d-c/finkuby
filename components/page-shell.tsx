@@ -6,9 +6,11 @@ import { SiteHeader } from "@/components/site-header";
 export function PageShell({ children }: { children: ReactNode }) {
   return (
     <>
-      <header className="sticky top-0 z-40 border-b border-[#e3eaf4] bg-white/90 backdrop-blur-md">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-[#e3eaf4] bg-white/95 backdrop-blur-md">
         <SiteHeader variant="solid" />
       </header>
+      {/* Spacer so content clears the fixed header. */}
+      <div aria-hidden className="h-[76px] sm:h-[88px]" />
       <main className="flex-1">{children}</main>
       <SiteFooter />
     </>
@@ -18,10 +20,10 @@ export function PageShell({ children }: { children: ReactNode }) {
 /** Navy hero band used by the inner pages, echoing the home hero's blue disc. */
 export function InnerHero({ children }: { children: ReactNode }) {
   return (
-    <section className="relative overflow-hidden bg-[#0b2f63] text-white">
+    <section className="relative overflow-hidden bg-[#1A2B56] text-white">
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-[40%] -left-[20%] h-[1100px] w-[1100px] rounded-full bg-[#16529c]"
+        className="pointer-events-none absolute -top-[40%] -left-[20%] h-[1100px] w-[1100px] rounded-full bg-[#1A2B56]"
       />
       <div
         aria-hidden

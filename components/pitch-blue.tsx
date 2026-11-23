@@ -9,7 +9,7 @@ export function PitchBlue() {
       <div
         className="absolute rounded-full"
         style={{
-          background: "#16529c",
+          background: "#1A2B56",
           ["--pitch-w" as string]: "100cqw",
           ["--pitch-h" as string]: "100cqh",
           ["--pitch-cx" as string]:

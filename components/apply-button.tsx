@@ -6,6 +6,7 @@ import { useRef, type ReactNode } from "react";
 import { smoothScrollTo } from "@/lib/smooth-scroll";
 import { SpecularButtonLazy } from "@/components/ui/reactbits/lazy";
 import { useInView, useWebglSlot } from "@/components/webgl-slots";
+import { ELIGIBILITY_URL } from "@/lib/site";
 
 /**
  * The site's primary pill CTA. Renders React Bits' SpecularButton (WebGL) only
@@ -13,15 +14,20 @@ import { useInView, useWebglSlot } from "@/components/webgl-slots";
  * below, which is also what server rendering and no-JS visitors get.
  */
 export function ApplyButton({
-  href = "/#calculator",
+  href = ELIGIBILITY_URL,
   size = "sm",
   fallbackClassName,
+  tint = "#1A2B56",
+  textColor = "#ffffff",
   children,
 }: {
   href?: string;
   size?: "sm" | "md" | "lg";
   /** Tailwind classes for the plain-link fallback. */
   fallbackClassName: string;
+  /** SpecularButton fill (defaults to logo navy). */
+  tint?: string;
+  textColor?: string;
   children: ReactNode;
 }) {
   const router = useRouter();
@@ -47,10 +53,10 @@ export function ApplyButton({
         <SpecularButtonLazy
           size={size}
           radius={999}
-          tint="#0b2347"
+          tint={tint}
           tintOpacity={0.92}
-          textColor="#ffffff"
-          lineColor="#ffffff"
+          textColor={textColor}
+          lineColor={textColor}
           onClick={() => {
             const target = glideTarget();
             if (target) glide(target);

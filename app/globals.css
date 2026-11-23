@@ -5,9 +5,29 @@
    from flattening the visuals. */
 @custom-variant motion-reduce (@media (prefers-reduced-motion: reduce) and (prefers-reduced-motion: no-preference));
 
+/* Agrandir — drop licensed .woff2 files into /public/fonts (Bold preferred for headlines). */
+@font-face {
+  font-family: "Agrandir";
+  src:
+    local("Agrandir Bold"),
+    local("Agrandir-Bold"),
+    local("Agrandir Grand Heavy"),
+    local("Agrandir"),
+    url("/fonts/Agrandir-Bold.woff2") format("woff2"),
+    url("/fonts/Agrandir.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --brand-white: #ffffff;
+  --brand-turquoise: #64e0e1;
+  --brand-sky: #40b5ff;
+  --brand-navy: #1a2b56;
+  --font-agrandir: "Agrandir", var(--font-geist-sans), sans-serif;
 }
 
 @theme inline {
@@ -15,6 +35,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-agrandir: "Agrandir", var(--font-geist-sans), sans-serif;
 }
 
 body {
@@ -60,15 +81,15 @@ article[id] {
   border-radius: 999px;
   background: linear-gradient(
     to right,
-    #16529c 0%,
-    #3ab6fc var(--fill, 0%),
+    #1A2B56 0%,
+    #40B5FF var(--fill, 0%),
     #fff var(--fill, 0%),
     #fff 100%
   );
   cursor: pointer;
 }
 .finkuby-range:focus-visible {
-  outline: 2px solid #3ab6fc;
+  outline: 2px solid #40B5FF;
   outline-offset: 4px;
 }
 .finkuby-range::-webkit-slider-runnable-track {
@@ -83,52 +104,53 @@ article[id] {
   height: 18px;
   margin-top: -6px;
   border-radius: 999px;
-  background: #16529c;
+  background: #1A2B56;
   border: 3px solid #ffffff;
-  box-shadow: 0 2px 8px rgba(22, 82, 156, 0.35);
+  box-shadow: 0 2px 8px rgba(26,43,86, 0.35);
 }
 .finkuby-range::-moz-range-thumb {
   width: 18px;
   height: 18px;
   border-radius: 999px;
-  background: #16529c;
+  background: #1A2B56;
   border: 3px solid #ffffff;
-  box-shadow: 0 2px 8px rgba(22, 82, 156, 0.35);
+  box-shadow: 0 2px 8px rgba(26,43,86, 0.35);
 }
 .finkuby-range-on-dark {
   background: linear-gradient(
     to right,
-    #3ab6fc 0%,
-    #9ed6ff var(--fill, 0%),
+    #40B5FF 0%,
+    #64E0E1 var(--fill, 0%),
     rgba(255, 255, 255, 0.22) var(--fill, 0%),
     rgba(255, 255, 255, 0.22) 100%
   );
 }
 .finkuby-range-on-dark::-webkit-slider-thumb {
   background: #ffffff;
-  border-color: #3ab6fc;
+  border-color: #40B5FF;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 .finkuby-range-on-dark::-moz-range-thumb {
   background: #ffffff;
-  border-color: #3ab6fc;
+  border-color: #40B5FF;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 
-/* "Our Offerings" title: lavender-violet gradient with soft light streaks drifting across. */
+/* "Our Offerings" title: brand sky with soft light streaks drifting across. */
 .offerings-title {
+  font-family: var(--font-agrandir);
   background-image: linear-gradient(
     105deg,
-    #8a68e0 0%,
-    #d6c3f3 14%,
-    #7f5ddc 26%,
-    #a98ceb 36%,
-    #dacaf5 46%,
-    #7553d8 58%,
-    #d3c0f2 70%,
-    #8d6fe4 82%,
-    #d8c7f4 92%,
-    #8a68e0 100%
+    #40B5FF 0%,
+    #b7dbff 14%,
+    #40B5FF 26%,
+    #40B5FF 36%,
+    #d6ecff 46%,
+    #40B5FF 58%,
+    #64E0E1 70%,
+    #2a74df 82%,
+    #c5e5ff 92%,
+    #40B5FF 100%
   );
   background-size: 200% 100%;
   -webkit-background-clip: text;
@@ -211,7 +233,7 @@ article[id] {
   pointer-events: none;
   background: radial-gradient(
     320px circle at var(--mx, 50%) var(--my, 50%),
-    rgba(58, 182, 252, 0.18),
+    rgba(64,181,255, 0.18),
     transparent 70%
   );
 }
@@ -246,13 +268,13 @@ article[id] {
 .metal-blue-text {
   background-image:
     linear-gradient(105deg, transparent 38%, rgba(255, 255, 255, 0.9) 48%, rgba(220, 238, 255, 0.6) 52%, transparent 62%),
-    linear-gradient(180deg, #6fb4ff 0%, #2f7fe8 38%, #123f86 50%, #1f68cf 58%, #5aa8ff 100%);
+    linear-gradient(180deg, #40B5FF 0%, #40B5FF 38%, #1A2B56 50%, #40B5FF 58%, #40B5FF 100%);
   background-size: 250% 100%, 100% 100%;
   background-repeat: no-repeat;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  color: #1f68cf;
+  color: #40B5FF;
   animation: metal-sweep 4.5s ease-in-out infinite;
 }
 
@@ -311,17 +333,17 @@ html[data-gliding] .glass-host { background: #ffffff !important; }
   border-radius: 9999px;
   opacity: 0;
 }
-/* Equal-width bands; layers crossfade so teal/white/sky rotate consecutively. */
+/* Equal-width bands; layers crossfade so brand blue / cyan / white rotate. */
 .hero-ring-a {
-  background: radial-gradient(circle closest-side at center, transparent 0 52%, #7eefe6 52.5% 68%, #ffffff 68.5% 84%, #8ec2ff 84.5% 100%);
+  background: radial-gradient(circle closest-side at center, transparent 0 52%, #40B5FF 52.5% 68%, #ffffff 68.5% 84%, #64E0E1 84.5% 100%);
   animation: hero-ring-a 2.5s linear infinite;
 }
 .hero-ring-b {
-  background: radial-gradient(circle closest-side at center, transparent 0 52%, #ffffff 52.5% 68%, #8ec2ff 68.5% 84%, #7eefe6 84.5% 100%);
+  background: radial-gradient(circle closest-side at center, transparent 0 52%, #ffffff 52.5% 68%, #64E0E1 68.5% 84%, #40B5FF 84.5% 100%);
   animation: hero-ring-b 2.5s linear infinite;
 }
 .hero-ring-c {
-  background: radial-gradient(circle closest-side at center, transparent 0 52%, #8ec2ff 52.5% 68%, #7eefe6 68.5% 84%, #ffffff 84.5% 100%);
+  background: radial-gradient(circle closest-side at center, transparent 0 52%, #64E0E1 52.5% 68%, #40B5FF 68.5% 84%, #ffffff 84.5% 100%);
   animation: hero-ring-c 2.5s linear infinite;
 }
 /* Cycle a → c → b so the color shift reads outward, not in. (2.5s loop) */
@@ -391,6 +413,30 @@ html[data-gliding] .glass-host { background: #ffffff !important; }
 @keyframes hero-orbit-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+@keyframes hero-trust-marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+.hero-trust-marquee {
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 10%,
+    #000 90%,
+    transparent 100%
+  );
+}
+
+/* Always animate — Windows “animation effects” off reports reduced motion. */
+.hero-trust-marquee-track {
+  display: flex;
+  width: max-content;
+  white-space: nowrap;
+  will-change: transform;
+  animation: hero-trust-marquee 9s linear infinite;
 }
 .orbit-spin-outer,
 .orbit-spin-inner,

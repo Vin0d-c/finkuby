@@ -116,7 +116,7 @@ const PRESETS = {
   }
 };
 
-const INTRO_LENGTH = { assemble: 1500, rise: 1400, spin: 1800, none: 0 };
+const INTRO_LENGTH = { assemble: 1500, rise: 2000, spin: 1800, none: 0 };
 const TILES = 8;
 const OVERLAP = 2.5;
 const DRAG_THRESHOLD = 5;
@@ -477,8 +477,8 @@ const CircularCarousel = ({
         return { radius: 1 + 0.6 * (1 - p), lift: 0 };
       }
       if (type === 'rise') {
-        const delay = (reach / 180) * 480;
-        const p = easeOutQuint(clamp((elapsed - delay) / 900, 0, 1));
+        const delay = (reach / 180) * 620;
+        const p = easeOutQuint(clamp((elapsed - delay) / 1250, 0, 1));
         return { radius: 1, lift: (1 - p) * state.drop };
       }
       if (type === 'spin') {

@@ -47,7 +47,7 @@ export function Modal({
       onClick={(event) => {
         if (event.target === event.currentTarget) onClose();
       }}
-      className="finkuby-dialog m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-xl glass-host overflow-y-auto rounded-3xl bg-white/90 p-0 text-[#2c3b50] shadow-[0_30px_80px_rgba(1,25,64,0.35)] backdrop:bg-[#061633]/70 backdrop:backdrop-blur-sm"
+      className="finkuby-dialog m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-xl glass-host overflow-y-auto rounded-3xl bg-white/90 p-0 text-[#2c3b50] shadow-[0_30px_80px_rgba(1,25,64,0.35)] backdrop:bg-[#1A2B56]/70 backdrop:backdrop-blur-sm"
     >
       {open ? (
         <div className="relative isolate p-6 sm:p-8">
@@ -78,7 +78,7 @@ export function Modal({
 export const fieldLabel =
   "mb-1.5 block text-xs font-semibold tracking-wide text-[#3d4f69]";
 export const fieldInput =
-  "w-full rounded-xl border border-[#d6e0ee] bg-[#f8fafd] px-3.5 py-2.5 text-[15px] text-[#0b2347] placeholder:text-[#9aa7ba] transition-colors outline-none focus:border-[#3ab6fc] focus:bg-white focus:ring-3 focus:ring-[#3ab6fc]/20";
+  "w-full rounded-xl border border-[#d6e0ee] bg-[#f8fafd] px-3.5 py-2.5 text-[15px] text-[#1A2B56] placeholder:text-[#9aa7ba] transition-colors outline-none focus:border-[#40B5FF] focus:bg-white focus:ring-3 focus:ring-[#40B5FF]/20";
 
 export function Field({
   label,
@@ -108,7 +108,7 @@ export function FormSuccess({ title, body }: { title: string; body: string }) {
       <span className="flex h-16 w-16 items-center justify-center rounded-full bg-[#e7f7ee] text-[#16a34a] ring-1 ring-[#16a34a]/20">
         <Icon name="check" className="h-8 w-8" />
       </span>
-      <h3 className="mt-5 text-2xl font-black tracking-tight text-[#0b2347]">
+      <h3 className="mt-5 text-2xl font-black tracking-tight text-[#1A2B56]">
         {title}
       </h3>
       <p className="mt-2 max-w-xs text-sm text-[#5b6b82]">{body}</p>

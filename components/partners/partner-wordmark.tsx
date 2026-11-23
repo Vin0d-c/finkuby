@@ -21,7 +21,7 @@ export function PartnerWordmark() {
       <ParticleText
         text="Finkuby"
         color="#ffffff"
-        highlightColor="#3ab6fc"
+        highlightColor="#40B5FF"
         fontSize="clamp(3rem,9vw,6rem)"
         fontWeight={900}
         intro="gather"

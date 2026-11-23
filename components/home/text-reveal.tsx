@@ -66,7 +66,7 @@ export function ThreeDTextReveal({ words = DEFAULT_WORDS }: { words?: string[] }
               ref={(el) => {
                 faceRefs.current[i] = el;
               }}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[linear-gradient(90deg,#0b2347,#16529c_45%,#3b8ef8)] bg-clip-text leading-none font-black tracking-[-0.04em] whitespace-nowrap text-transparent [backface-visibility:hidden]"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[linear-gradient(90deg,#1A2B56,#1A2B56_45%,#40B5FF)] bg-clip-text leading-none font-black tracking-[-0.04em] whitespace-nowrap text-transparent [backface-visibility:hidden]"
               style={{ transform: `rotateX(${-i * STEP}deg) translateZ(${RADIUS_EM}em)` }}
             >
               {words[i % words.length]}
